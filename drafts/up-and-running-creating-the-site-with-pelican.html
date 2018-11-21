@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Up and Running: Creating the Site With Pelican</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">RhysDeimel </a></h1>
+                <nav><ul>
+                    <li><a href="/category/review.html">Review</a></li>
+                    <li><a href="/category/test.html">Test</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/drafts/up-and-running-creating-the-site-with-pelican.html" rel="bookmark"
+           title="Permalink to Up and Running: Creating the Site With Pelican">Up and Running: Creating the Site With Pelican</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2018-11-22T00:00:00+11:00">
+                Published: Thu 22 November 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/rhys-deimel.html">Rhys Deimel</a>
+        </address>
+<p>In <a href="/category/howto.html">HowTo</a>.</p>
+<p>tags: <a href="/tag/pelican.html">pelican</a> <a href="/tag/python.html">python</a> <a href="/tag/travis.html">travis</a> </p>
+</footer><!-- /.post-info -->      <!-- Making user pages, which publishes from the master branch. So need to make a separate branch
+https://help.github.com/articles/user-organization-and-project-pages/#user-and-organization-pages-sites
+
+link http://docs.getpelican.com/en/stable/tips.html#publishing-to-github
+Pelican has a plugin, `ghp-import`, which makes things easier
+-->
+
+<h1>Some Title</h1>
+<p>Python. Pelican. A Blog so I don't have to remember the things I do. Awesome.</p>
+<p>What did I do to get this thing up and running? What did I have in mind while doing it? Well, let me explain future me (or any other <em>not me</em> reading this). I wanted somewhere to document things I have figured out, something that was internet accessable, and easy enough to get the ball rolling with. <a href="https://pages.github.com/">GitHub Pages</a> is something I attempted before using their suggestion of <a href="https://jekyllrb.com/]">Jekyll</a>, but I could never be motivated enough to do anything because, well, <em>Ruby</em>. Having purged my previous attempt at a blog, I decided to give GitHub Pages a whirl, but this time putting in some extra effort to use <a href="https://blog.getpelican.com/">Pelican</a>. Given Python is my preferred language, let's hope this pans out better. Automatic deployment is something I also wanted, because it means I can write on whatever, and not have to worry about anything more that a <code>git push</code>. For this, <a href="https://travis-ci.org/">Travis CI</a> -- because of GitHub integration -- is the obvious choice.</p>
+<p>Now, not going to lie, but the default theme for Pelican is pretty heinous. <a href="http://www.pelicanthemes.com/">Sample themes</a> don't really fare much better either. I guess the joke that Python developers only know how to make <s>ugly</s> functional web pages kinda pans out here... Anyway, with that in mind, I wanted to try my hand and creating my own theme. But with one caveat: I wanted to attempt frontend TDD. This is something I have not yet done, so it should be <em>interesting</em>.</p>
+<p>With that in mind, here's what I did.</p>
+<h2>Some SubHeader</h2>
+<p>New install with pelican 4.0.0
+- create dir
+    - create venv
+    - install pelican <code>pip install pelican markdown ghp-import</code>
+        pelican, markdown cause I want to write in markdown, and ghp-import so we can do things with github pages
+    - add .gitignore [https://github.com/github/gitignore/blob/master/Python.gitignore]</p>
+<p><code>pelican-quickstart</code></p>
+<div class="highlight"><pre><span></span>$ pelican-quickstart
+Welcome to pelican-quickstart v4.0.0.
+
+This script will <span class="nb">help</span> you create a new Pelican-based website.
+
+Please answer the following questions so this script can generate the files
+needed by Pelican.
+
+
+&gt; Where <span class="k">do</span> you want to create your new web site? <span class="o">[</span>.<span class="o">]</span>
+&gt; What will be the title of this web site? RhysDeimel
+&gt; Who will be the author of this web site? Rhys Deimel
+&gt; What will be the default language of this web site? <span class="o">[</span>en<span class="o">]</span>
+&gt; Do you want to specify a URL prefix? e.g., https://example.com   <span class="o">(</span>Y/n<span class="o">)</span> n
+&gt; Do you want to <span class="nb">enable</span> article pagination? <span class="o">(</span>Y/n<span class="o">)</span> y
+&gt; How many articles per page <span class="k">do</span> you want? <span class="o">[</span><span class="m">10</span><span class="o">]</span>
+&gt; What is your <span class="nb">time</span> zone? <span class="o">[</span>Europe/Paris<span class="o">]</span> Australia/Sydney
+&gt; Do you want to generate a tasks.py/Makefile to automate generation and publishing? <span class="o">(</span>Y/n<span class="o">)</span> n
+Done. Your new project is available at /mnt/c/Users/LucidNightmare/Coding/blog
+</pre></div>
+
+
+<p>make a test page in content:</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">My</span> <span class="n">First</span> <span class="n">Review</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span><span class="o">:</span><span class="mi">20</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">Review</span>
+
+<span class="n">Following</span> <span class="k">is</span> <span class="n">a</span> <span class="n">review</span> <span class="n">of</span> <span class="n">my</span> <span class="n">favorite</span> <span class="n">mechanical</span> <span class="n">keyboard</span><span class="o">.</span>
+</pre></div>
+
+
+<p><code>pelican content</code></p>
+<p><code>pelican --listen</code></p>
+<p>Hooking up to travis was <em>fun</em>
+- travis has a deploy integration for github pages that is pretty much the same as the one in fabric. The only issue is figuring out the travis shenanigans. End result is the file I ended up with. <code>Script</code> will run future tests, <code>before_deploy</code> generates content, <code>deploy</code> pushes everything in the output dir to master.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
