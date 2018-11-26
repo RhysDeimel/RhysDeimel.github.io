@@ -40,19 +40,16 @@ link http://docs.getpelican.com/en/stable/tips.html#publishing-to-github
 Pelican has a plugin, `ghp-import`, which makes things easier
 -->
 
-<h1>Some Title</h1>
+<h1>A Wonderful Bird Is the Pelican</h1>
 <p>Python. Pelican. A Blog so I don't have to remember the things I do. Awesome.</p>
 <p>What did I do to get this thing up and running? What did I have in mind while doing it? Well, let me explain future me (or any other <em>not me</em> reading this). I wanted somewhere to document things I have figured out, something that was internet accessable, and easy enough to get the ball rolling with. <a href="https://pages.github.com/">GitHub Pages</a> is something I attempted before using their suggestion of <a href="https://jekyllrb.com/]">Jekyll</a>, but I could never be motivated enough to do anything because, well, <em>Ruby</em>. Having purged my previous attempt at a blog, I decided to give GitHub Pages a whirl, but this time putting in some extra effort to use <a href="https://blog.getpelican.com/">Pelican</a>. Given Python is my preferred language, let's hope this pans out better. Automatic deployment is something I also wanted, because it means I can write on whatever, and not have to worry about anything more that a <code>git push</code>. For this, <a href="https://travis-ci.org/">Travis CI</a> -- because of GitHub integration -- is the obvious choice.</p>
 <p>Now, not going to lie, but the default theme for Pelican is pretty heinous. <a href="http://www.pelicanthemes.com/">Sample themes</a> don't really fare much better either. I guess the joke that Python developers only know how to make <s>ugly</s> functional web pages kinda pans out here... Anyway, with that in mind, I wanted to try my hand and creating my own theme. But with one caveat: I wanted to attempt frontend TDD. This is something I have not yet done, so it should be <em>interesting</em>.</p>
 <p>With that in mind, here's what I did.</p>
-<h2>Some SubHeader</h2>
-<p>New install with pelican 4.0.0
-- create dir
-    - create venv
-    - install pelican <code>pip install pelican markdown ghp-import</code>
-        pelican, markdown cause I want to write in markdown, and ghp-import so we can do things with github pages
-    - add .gitignore [https://github.com/github/gitignore/blob/master/Python.gitignore]</p>
-<p><code>pelican-quickstart</code></p>
+<h2>His Beak Can Hold More Than His Belly Can</h2>
+<p>First off, the basics. You're going to need to create your directory, and then you should <em>probably</em> create your virtual environment. You don't have to, but don't say I didn't warn you. Once you've activated your virtual envrionment (you did do that, right?), smash a <code>pip install pelican markdown ghp-import</code> into the console. You can see I've decided to install markdown, because I'd like to be able to write with it, but the next part -- <code>ghp-import</code> -- I'm reasonably certain I don't need. I think that's a relic from a first round attempt at automatic publishing. Maybe I'll revise this later and remove it (highly unlikely).</p>
+<p>As of writing, Pelican is at version <code>4.0.0</code>, so if anything is funky, blame that. You might want to add a <code>.gitignore</code> also. I used Github's generic <a href="https://github.com/github/gitignore/blob/master/Python.gitignore">Python.gitignore</a> because I'm lazy, but craft your own if that's your jam.</p>
+<h2>He Can Hold in His Beak</h2>
+<p>Next up is getting off our <code>master</code> branch. You'll thank me later, so just create another with <code>git checkout -b src</code>. Once you're on your <code>src</code> branch, run <code>pelican-quickstart</code>. You'll be bombarded with a series of questions to help get your project up and running. I'm going to dump mine below for reference.</p>
 <div class="highlight"><pre><span></span>$ pelican-quickstart
 Welcome to pelican-quickstart v4.0.0.
 
@@ -71,11 +68,13 @@ needed by Pelican.
 &gt; How many articles per page <span class="k">do</span> you want? <span class="o">[</span><span class="m">10</span><span class="o">]</span>
 &gt; What is your <span class="nb">time</span> zone? <span class="o">[</span>Europe/Paris<span class="o">]</span> Australia/Sydney
 &gt; Do you want to generate a tasks.py/Makefile to automate generation and publishing? <span class="o">(</span>Y/n<span class="o">)</span> n
-Done. Your new project is available at /mnt/c/Users/LucidNightmare/Coding/blog
+Done. Your new project is available at /mnt/c/Users/someawesomedir/blog
 </pre></div>
 
 
-<p>make a test page in content:</p>
+<p>Pretty self explanatory for the most part. I'm aiming to make this blog a regular-<em>ish</em> thing, so pagination is enabled. You'll notice I did choose to skip <code>tasks.py/Makefile</code> generation though. Travis will take care of that for me.</p>
+<h2>Enough Food for a Week!</h2>
+<p>Time to make a test page in content. We'll just rip the example straight from the Pelican docs and place it in our <code>content</code> folder that should be sitting in our project root:</p>
 <div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">My</span> <span class="n">First</span> <span class="n">Review</span>
 <span class="n">Date</span><span class="o">:</span> <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span><span class="o">:</span><span class="mi">20</span>
 <span class="n">Category</span><span class="o">:</span> <span class="n">Review</span>
@@ -84,10 +83,12 @@ Done. Your new project is available at /mnt/c/Users/LucidNightmare/Coding/blog
 </pre></div>
 
 
-<p><code>pelican content</code></p>
-<p><code>pelican --listen</code></p>
-<p>Hooking up to travis was <em>fun</em>
-- travis has a deploy integration for github pages that is pretty much the same as the one in fabric. The only issue is figuring out the travis shenanigans. End result is the file I ended up with. <code>Script</code> will run future tests, <code>before_deploy</code> generates content, <code>deploy</code> pushes everything in the output dir to master.</p>
+<p>Once we've created that file, we need to turn everything into a static site. Run <code>pelican content</code> and you should find that an <code>output</code> folder is created, and filled with html files. Progress! To preview it, all we need to do is throw <code>pelican --listen</code> into the command line, and we should find out blog being served at <code>http://localhost:8000/</code>. <strong>Protip:</strong> throw in the <code>-r</code> flag if you'd like Pelican to rebuild every time it detects a change in the <code>content</code> folder.</p>
+<h2>But I'll Be Darned If I Know How the Hellican?</h2>
+<p>Lastly is travis integration. Hooking up was <em>fun</em>, as Travis usually is.</p>
+<ul>
+<li>travis has a deploy integration for github pages that is pretty much the same as the one in fabric. The only issue is figuring out the travis shenanigans. End result is the file I ended up with. <code>Script</code> will run future tests, <code>before_deploy</code> generates content, <code>deploy</code> pushes everything in the output dir to master.</li>
+</ul>
     </div><!-- /.entry-content -->
 
   </article>
