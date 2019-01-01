@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Home network shenanigans</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">RhysDeimel </a></h1>
+                <nav><ul>
+                    <li><a href="/category/test.html">Test</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/drafts/home-network-shenanigans.html" rel="bookmark"
+           title="Permalink to Home network shenanigans">Home network shenanigans</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2018-12-01T00:00:00+11:00">
+                Published: Sat 01 December 2018
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/rhys-deimel.html">Rhys Deimel</a>
+        </address>
+<p>In <a href="/category/howto.html">HowTo</a>.</p>
+<p>tags: <a href="/tag/route-table.html">route table</a> <a href="/tag/network.html">network</a> </p>
+</footer><!-- /.post-info -->      <p>Situation: modem in a fucking retarded part of the house. No option for wired, so is a single wireless AP. Have given the Microserver a wireless card so it can participate, but that means I can't access ILO.</p>
+<p>Created a separate wired network that has no internet connection. server is in it, as well as NAS and HTPC (has wireless card), and desktop (has wireless card).</p>
+<p>Because there's two default gateways, computers will derp out because computers autocreate route rule sending <code>0.0.0.0</code> to both gateways, only one of which actually has internet.</p>
+<p>So time to open up the commandline.</p>
+<ul>
+<li>Start, run, cmd (with admin permissions)</li>
+<li>let's check out the help for <code>route</code></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nl">C</span><span class="p">:</span><span class="err">\</span><span class="n">WINDOWS</span><span class="err">\</span><span class="n">system32</span><span class="o">&gt;</span><span class="n">route</span>
+
+<span class="n">Manipulates</span> <span class="n">network</span> <span class="n">routing</span> <span class="n">tables</span><span class="p">.</span>
+
+<span class="n">ROUTE</span> <span class="p">[</span><span class="o">-</span><span class="n">f</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="o">|-</span><span class="mi">6</span><span class="p">]</span> <span class="n">command</span> <span class="p">[</span><span class="n">destination</span><span class="p">]</span>
+                  <span class="p">[</span><span class="n">MASK</span> <span class="n">netmask</span><span class="p">]</span>  <span class="p">[</span><span class="n">gateway</span><span class="p">]</span> <span class="p">[</span><span class="n">METRIC</span> <span class="n">metric</span><span class="p">]</span>  <span class="p">[</span><span class="n">IF</span> <span class="n">interface</span><span class="p">]</span>
+
+  <span class="o">-</span><span class="n">f</span>           <span class="n">Clears</span> <span class="n">the</span> <span class="n">routing</span> <span class="n">tables</span> <span class="n">of</span> <span class="n">all</span> <span class="n">gateway</span> <span class="n">entries</span><span class="p">.</span>  <span class="n">If</span> <span class="n">this</span> <span class="n">is</span>
+               <span class="n">used</span> <span class="k">in</span> <span class="n">conjunction</span> <span class="n">with</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">commands</span><span class="p">,</span> <span class="n">the</span> <span class="n">tables</span> <span class="n">are</span>
+               <span class="n">cleared</span> <span class="n">prior</span> <span class="n">to</span> <span class="n">running</span> <span class="n">the</span> <span class="n">command</span><span class="p">.</span>
+
+  <span class="o">-</span><span class="n">p</span>           <span class="n">When</span> <span class="n">used</span> <span class="n">with</span> <span class="n">the</span> <span class="n">ADD</span> <span class="n">command</span><span class="p">,</span> <span class="n">makes</span> <span class="n">a</span> <span class="n">route</span> <span class="n">persistent</span> <span class="n">across</span>
+               <span class="n">boots</span> <span class="n">of</span> <span class="n">the</span> <span class="n">system</span><span class="p">.</span> <span class="n">By</span> <span class="k">default</span><span class="p">,</span> <span class="n">routes</span> <span class="n">are</span> <span class="n">not</span> <span class="n">preserved</span>
+               <span class="n">when</span> <span class="n">the</span> <span class="n">system</span> <span class="n">is</span> <span class="n">restarted</span><span class="p">.</span> <span class="n">Ignored</span> <span class="k">for</span> <span class="n">all</span> <span class="n">other</span> <span class="n">commands</span><span class="p">,</span>
+               <span class="n">which</span> <span class="n">always</span> <span class="n">affect</span> <span class="n">the</span> <span class="n">appropriate</span> <span class="n">persistent</span> <span class="n">routes</span><span class="p">.</span>
+
+  <span class="o">-</span><span class="mi">4</span>           <span class="n">Force</span> <span class="n">using</span> <span class="n">IPv4</span><span class="p">.</span>
+
+  <span class="o">-</span><span class="mi">6</span>           <span class="n">Force</span> <span class="n">using</span> <span class="n">IPv6</span><span class="p">.</span>
+
+  <span class="n">command</span>      <span class="n">One</span> <span class="n">of</span> <span class="nl">these</span><span class="p">:</span>
+                 <span class="n">PRINT</span>     <span class="n">Prints</span>  <span class="n">a</span> <span class="n">route</span>
+                 <span class="n">ADD</span>       <span class="n">Adds</span>    <span class="n">a</span> <span class="n">route</span>
+                 <span class="n">DELETE</span>    <span class="n">Deletes</span> <span class="n">a</span> <span class="n">route</span>
+                 <span class="n">CHANGE</span>    <span class="n">Modifies</span> <span class="n">an</span> <span class="n">existing</span> <span class="n">route</span>
+  <span class="n">destination</span>  <span class="n">Specifies</span> <span class="n">the</span> <span class="n">host</span><span class="p">.</span>
+  <span class="n">MASK</span>         <span class="n">Specifies</span> <span class="n">that</span> <span class="n">the</span> <span class="n">next</span> <span class="n">parameter</span> <span class="n">is</span> <span class="n">the</span> <span class="err">&#39;</span><span class="n">netmask</span><span class="err">&#39;</span> <span class="n">value</span><span class="p">.</span>
+  <span class="n">netmask</span>      <span class="n">Specifies</span> <span class="n">a</span> <span class="n">subnet</span> <span class="n">mask</span> <span class="n">value</span> <span class="k">for</span> <span class="n">this</span> <span class="n">route</span> <span class="n">entry</span><span class="p">.</span>
+               <span class="n">If</span> <span class="n">not</span> <span class="n">specified</span><span class="p">,</span> <span class="n">it</span> <span class="n">defaults</span> <span class="n">to</span> <span class="mf">255.255.255.255</span><span class="p">.</span>
+  <span class="n">gateway</span>      <span class="n">Specifies</span> <span class="n">gateway</span><span class="p">.</span>
+  <span class="n">interface</span>    <span class="n">the</span> <span class="n">interface</span> <span class="n">number</span> <span class="k">for</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">route</span><span class="p">.</span>
+  <span class="n">METRIC</span>       <span class="n">specifies</span> <span class="n">the</span> <span class="n">metric</span><span class="p">,</span> <span class="n">ie</span><span class="p">.</span> <span class="n">cost</span> <span class="k">for</span> <span class="n">the</span> <span class="n">destination</span><span class="p">.</span>
+
+<span class="n">All</span> <span class="n">symbolic</span> <span class="n">names</span> <span class="n">used</span> <span class="k">for</span> <span class="n">destination</span> <span class="n">are</span> <span class="n">looked</span> <span class="n">up</span> <span class="k">in</span> <span class="n">the</span> <span class="n">network</span> <span class="n">database</span>
+<span class="n">file</span> <span class="n">NETWORKS</span><span class="p">.</span> <span class="n">The</span> <span class="n">symbolic</span> <span class="n">names</span> <span class="k">for</span> <span class="n">gateway</span> <span class="n">are</span> <span class="n">looked</span> <span class="n">up</span> <span class="k">in</span> <span class="n">the</span> <span class="n">host</span> <span class="n">name</span>
+<span class="n">database</span> <span class="n">file</span> <span class="n">HOSTS</span><span class="p">.</span>
+
+<span class="n">If</span> <span class="n">the</span> <span class="n">command</span> <span class="n">is</span> <span class="n">PRINT</span> <span class="n">or</span> <span class="n">DELETE</span><span class="p">.</span> <span class="n">Destination</span> <span class="n">or</span> <span class="n">gateway</span> <span class="n">can</span> <span class="n">be</span> <span class="n">a</span> <span class="n">wildcard</span><span class="p">,</span>
+<span class="p">(</span><span class="n">wildcard</span> <span class="n">is</span> <span class="n">specified</span> <span class="n">as</span> <span class="n">a</span> <span class="n">star</span> <span class="sc">&#39;*&#39;</span><span class="p">),</span> <span class="n">or</span> <span class="n">the</span> <span class="n">gateway</span> <span class="n">argument</span> <span class="n">may</span> <span class="n">be</span> <span class="n">omitted</span><span class="p">.</span>
+
+<span class="n">If</span> <span class="n">Dest</span> <span class="n">contains</span> <span class="n">a</span> <span class="o">*</span> <span class="n">or</span> <span class="o">?</span><span class="p">,</span> <span class="n">it</span> <span class="n">is</span> <span class="n">treated</span> <span class="n">as</span> <span class="n">a</span> <span class="n">shell</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">and</span> <span class="n">only</span>
+<span class="n">matching</span> <span class="n">destination</span> <span class="n">routes</span> <span class="n">are</span> <span class="n">printed</span><span class="p">.</span> <span class="n">The</span> <span class="sc">&#39;*&#39;</span> <span class="n">matches</span> <span class="n">any</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">and</span> <span class="sc">&#39;?&#39;</span> <span class="n">matches</span> <span class="n">any</span> <span class="n">one</span> <span class="kt">char</span><span class="p">.</span> <span class="nl">Examples</span><span class="p">:</span> <span class="mf">157.</span><span class="o">*</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">157.</span><span class="o">*</span><span class="p">,</span> <span class="mf">127.</span><span class="o">*</span><span class="p">,</span> <span class="o">*</span><span class="mi">224</span><span class="o">*</span><span class="p">.</span>
+
+<span class="n">Pattern</span> <span class="n">match</span> <span class="n">is</span> <span class="n">only</span> <span class="n">allowed</span> <span class="k">in</span> <span class="n">PRINT</span> <span class="n">command</span><span class="p">.</span>
+<span class="n">Diagnostic</span> <span class="nl">Notes</span><span class="p">:</span>
+    <span class="n">Invalid</span> <span class="n">MASK</span> <span class="n">generates</span> <span class="n">an</span> <span class="n">error</span><span class="p">,</span> <span class="n">that</span> <span class="n">is</span> <span class="n">when</span> <span class="p">(</span><span class="n">DEST</span> <span class="o">&amp;</span> <span class="n">MASK</span><span class="p">)</span> <span class="o">!=</span> <span class="n">DEST</span><span class="p">.</span>
+    <span class="n">Example</span><span class="o">&gt;</span> <span class="n">route</span> <span class="n">ADD</span> <span class="mf">157.0.0.0</span> <span class="n">MASK</span> <span class="mf">155.0.0.0</span> <span class="mf">157.55.80.1</span> <span class="n">IF</span> <span class="mi">1</span>
+             <span class="n">The</span> <span class="n">route</span> <span class="n">addition</span> <span class="nl">failed</span><span class="p">:</span> <span class="n">The</span> <span class="n">specified</span> <span class="n">mask</span> <span class="n">parameter</span> <span class="n">is</span> <span class="n">invalid</span><span class="p">.</span> <span class="p">(</span><span class="n">Destination</span> <span class="o">&amp;</span> <span class="n">Mask</span><span class="p">)</span> <span class="o">!=</span> <span class="n">Destination</span><span class="p">.</span>
+
+<span class="nl">Examples</span><span class="p">:</span>
+
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">PRINT</span>
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">PRINT</span> <span class="o">-</span><span class="mi">4</span>
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">PRINT</span> <span class="o">-</span><span class="mi">6</span>
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">PRINT</span> <span class="mi">157</span><span class="o">*</span>          <span class="p">....</span> <span class="n">Only</span> <span class="n">prints</span> <span class="n">those</span> <span class="n">matching</span> <span class="mi">157</span><span class="o">*</span>
+
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">ADD</span> <span class="mf">157.0.0.0</span> <span class="n">MASK</span> <span class="mf">255.0.0.0</span>  <span class="mf">157.55.80.1</span> <span class="n">METRIC</span> <span class="mi">3</span> <span class="n">IF</span> <span class="mi">2</span>
+             <span class="n">destination</span><span class="o">^</span>      <span class="o">^</span><span class="n">mask</span>      <span class="o">^</span><span class="n">gateway</span>     <span class="n">metric</span><span class="o">^</span>    <span class="o">^</span>
+                                                         <span class="n">Interface</span><span class="o">^</span>
+      <span class="n">If</span> <span class="n">IF</span> <span class="n">is</span> <span class="n">not</span> <span class="n">given</span><span class="p">,</span> <span class="n">it</span> <span class="n">tries</span> <span class="n">to</span> <span class="n">find</span> <span class="n">the</span> <span class="n">best</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">a</span> <span class="n">given</span>
+      <span class="n">gateway</span><span class="p">.</span>
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">ADD</span> <span class="mf">3ff</span><span class="n">e</span><span class="o">::/</span><span class="mi">32</span> <span class="mf">3ff</span><span class="n">e</span><span class="o">::</span><span class="mi">1</span>
+
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">CHANGE</span> <span class="mf">157.0.0.0</span> <span class="n">MASK</span> <span class="mf">255.0.0.0</span> <span class="mf">157.55.80.5</span> <span class="n">METRIC</span> <span class="mi">2</span> <span class="n">IF</span> <span class="mi">2</span>
+
+      <span class="n">CHANGE</span> <span class="n">is</span> <span class="n">used</span> <span class="n">to</span> <span class="n">modify</span> <span class="n">gateway</span> <span class="n">and</span><span class="o">/</span><span class="n">or</span> <span class="n">metric</span> <span class="n">only</span><span class="p">.</span>
+
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">DELETE</span> <span class="mf">157.0.0.0</span>
+    <span class="o">&gt;</span> <span class="n">route</span> <span class="n">DELETE</span> <span class="mf">3ff</span><span class="n">e</span><span class="o">::/</span><span class="mi">32</span>
+</pre></div>
+
+
+<ul>
+<li>Sick. Let's see what we've got <code>route print</code></li>
+</ul>
+<div class="highlight"><pre><span></span>C:\WINDOWS\system32&gt;route print
+===========================================================================
+Interface List
+ 19...c6 15 d9 1e 40 61 ......Hyper-V Virtual Ethernet Adapter
+  8...4c cc 6a b5 cc 80 ......Intel(R) Ethernet Connection (2) I219-V
+  2...02 00 4c 4f 4f 50 ......Npcap Loopback Adapter
+ 30...00 ff b9 1d c5 32 ......TAP Adapter OAS NDIS 6.0
+  3...2c fd a1 cd f8 ba ......ASUS PCE-AC88 802.11ac Network Adapter
+  1...........................Software Loopback Interface 1
+===========================================================================
+
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0      192.168.1.1    192.168.1.104     35
+          0.0.0.0          0.0.0.0      192.168.0.1    192.168.0.100     25
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+      169.254.0.0      255.255.0.0         On-link    169.254.68.100    281
+   169.254.68.100  255.255.255.255         On-link    169.254.68.100    281
+  169.254.255.255  255.255.255.255         On-link    169.254.68.100    281
+   172.29.226.224  255.255.255.240         On-link    172.29.226.225    271
+   172.29.226.225  255.255.255.255         On-link    172.29.226.225    271
+   172.29.226.239  255.255.255.255         On-link    172.29.226.225    271
+      192.168.0.0    255.255.255.0         On-link     192.168.0.100    281
+    192.168.0.100  255.255.255.255         On-link     192.168.0.100    281
+    192.168.0.255  255.255.255.255         On-link     192.168.0.100    281
+      192.168.1.0    255.255.255.0         On-link     192.168.1.104    291
+    192.168.1.104  255.255.255.255         On-link     192.168.1.104    291
+    192.168.1.255  255.255.255.255         On-link     192.168.1.104    291
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link     192.168.0.100    281
+        224.0.0.0        240.0.0.0         On-link    169.254.68.100    281
+        224.0.0.0        240.0.0.0         On-link    172.29.226.225    271
+        224.0.0.0        240.0.0.0         On-link     192.168.1.104    291
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link     192.168.0.100    281
+  255.255.255.255  255.255.255.255         On-link    169.254.68.100    281
+  255.255.255.255  255.255.255.255         On-link    172.29.226.225    271
+  255.255.255.255  255.255.255.255         On-link     192.168.1.104    291
+===========================================================================
+Persistent Routes:
+  Network Address          Netmask  Gateway Address  Metric
+          0.0.0.0          0.0.0.0         25.0.0.1  Default
+===========================================================================
+
+IPv6 Route Table
+===========================================================================
+Active Routes:
+ If Metric Network Destination      Gateway
+  1    331 ::1/128                  On-link
+  8    281 fe80::/64                On-link
+  2    281 fe80::/64                On-link
+ 19    271 fe80::/64                On-link
+  3    291 fe80::/64                On-link
+ 19    271 fe80::39e8:b5db:1fb:8d30/128
+                                    On-link
+  3    291 fe80::5cc5:250b:3684:d932/128
+                                    On-link
+  2    281 fe80::a130:8ea9:99f6:4464/128
+                                    On-link
+  8    281 fe80::cc4b:3d1f:5102:e123/128
+                                    On-link
+  1    331 ff00::/8                 On-link
+  8    281 ff00::/8                 On-link
+  2    281 ff00::/8                 On-link
+ 19    271 ff00::/8                 On-link
+  3    291 ff00::/8                 On-link
+===========================================================================
+Persistent Routes:
+  None
+</pre></div>
+
+
+<ul>
+<li>delete both the 0.0.0.0 entries with <code>route delete</code></li>
+</ul>
+<div class="highlight"><pre><span></span>C:\WINDOWS\system32&gt;route delete 0.0.0.0
+ OK!
+</pre></div>
+
+
+<ul>
+<li>I want 0.0.0.0 traffic to be routed through the AP, it's address is <code>192.168.1.1</code>, so we use the following command (the -p flag makes it persistent between boots)
+<code>IF 3</code> also sets only if wifi interface is detected. The <code>3</code> is the id of the interface, which is the first number in each row of the interfaces in the <code>Interface List</code> </li>
+</ul>
+<div class="highlight"><pre><span></span>C:\WINDOWS\system32&gt;route -p ADD 0.0.0.0 MASK 0.0.0.0 192.168.1.1 METRIC 1 IF 3 
+ OK!
+</pre></div>
+
+
+<ul>
+<li>Next, I need to make my computer aware of the offline network, and send all traffic bound for it to the offline router <code>192.168.0.1</code>. DHCP is set to assign ips between <code>192.168.1.100</code> &amp; <code>192.168.1.200</code>, so if we assign a subnet mask of <code>255.255.255.0</code>, that should be more than enough to cover it. </li>
+</ul>
+<div class="highlight"><pre><span></span>C:\WINDOWS\system32&gt;route -p ADD 192.168.0.0 MASK 255.255.255.0 192.168.0.1 IF 8
+ OK!
+</pre></div>
+
+
+<ul>
+<li>and a final check to make sure it's all there:</li>
+</ul>
+<div class="highlight"><pre><span></span>C:\WINDOWS\system32&gt;route print
+===========================================================================
+Interface List
+ 19...c6 15 d9 1e 40 61 ......Hyper-V Virtual Ethernet Adapter
+  8...4c cc 6a b5 cc 80 ......Intel(R) Ethernet Connection (2) I219-V
+  2...02 00 4c 4f 4f 50 ......Npcap Loopback Adapter
+ 30...00 ff b9 1d c5 32 ......TAP Adapter OAS NDIS 6.0
+  3...2c fd a1 cd f8 ba ......ASUS PCE-AC88 802.11ac Network Adapter
+  1...........................Software Loopback Interface 1
+===========================================================================
+
+IPv4 Route Table
+===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+          0.0.0.0          0.0.0.0      192.168.1.1    192.168.1.104     36
+        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+      169.254.0.0      255.255.0.0         On-link    169.254.68.100    281
+   169.254.68.100  255.255.255.255         On-link    169.254.68.100    281
+  169.254.255.255  255.255.255.255         On-link    169.254.68.100    281
+   172.29.226.224  255.255.255.240         On-link    172.29.226.225    271
+   172.29.226.225  255.255.255.255         On-link    172.29.226.225    271
+   172.29.226.239  255.255.255.255         On-link    172.29.226.225    271
+      192.168.0.0    255.255.255.0         On-link     192.168.0.100    281
+      192.168.0.0    255.255.255.0      192.168.0.1    192.168.0.100     26
+    192.168.0.100  255.255.255.255         On-link     192.168.0.100    281
+    192.168.0.255  255.255.255.255         On-link     192.168.0.100    281
+      192.168.1.0    255.255.255.0         On-link     192.168.1.104    291
+    192.168.1.104  255.255.255.255         On-link     192.168.1.104    291
+    192.168.1.255  255.255.255.255         On-link     192.168.1.104    291
+        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+        224.0.0.0        240.0.0.0         On-link     192.168.0.100    281
+        224.0.0.0        240.0.0.0         On-link    169.254.68.100    281
+        224.0.0.0        240.0.0.0         On-link    172.29.226.225    271
+        224.0.0.0        240.0.0.0         On-link     192.168.1.104    291
+  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+  255.255.255.255  255.255.255.255         On-link     192.168.0.100    281
+  255.255.255.255  255.255.255.255         On-link    169.254.68.100    281
+  255.255.255.255  255.255.255.255         On-link    172.29.226.225    271
+  255.255.255.255  255.255.255.255         On-link     192.168.1.104    291
+===========================================================================
+Persistent Routes:
+  Network Address          Netmask  Gateway Address  Metric
+          0.0.0.0          0.0.0.0      192.168.1.1       1
+      192.168.0.0    255.255.255.0      192.168.0.1       1
+===========================================================================
+
+IPv6 Route Table
+===========================================================================
+Active Routes:
+ If Metric Network Destination      Gateway
+  1    331 ::1/128                  On-link
+  8    281 fe80::/64                On-link
+  2    281 fe80::/64                On-link
+ 19    271 fe80::/64                On-link
+  3    291 fe80::/64                On-link
+ 19    271 fe80::39e8:b5db:1fb:8d30/128
+                                    On-link
+  3    291 fe80::5cc5:250b:3684:d932/128
+                                    On-link
+  2    281 fe80::a130:8ea9:99f6:4464/128
+                                    On-link
+  8    281 fe80::cc4b:3d1f:5102:e123/128
+                                    On-link
+  1    331 ff00::/8                 On-link
+  8    281 ff00::/8                 On-link
+  2    281 ff00::/8                 On-link
+ 19    271 ff00::/8                 On-link
+  3    291 ff00::/8                 On-link
+===========================================================================
+Persistent Routes:
+  None
+</pre></div>
+
+
+<h1>EDIT</h1>
+<p>Some issues. Whenever IP is refreshed, windows 10 automatically re-adds the following line</p>
+<div class="highlight"><pre><span></span>===========================================================================
+Active Routes:
+Network Destination        Netmask          Gateway       Interface  Metric
+0.0.0.0          0.0.0.0      192.168.0.1    192.168.0.100     25
+</pre></div>
+
+
+<p>and this fucks with the persistent route.</p>
+<p>Going to make an attempt at changing the priority of the NIC's.</p>
+<p>Start up powershell as admin
+- enter <code>Get-NetIPInterface</code></p>
+<div class="highlight"><pre><span></span>PS C:\WINDOWS\system32&gt; Get-NetIPInterface
+
+ifIndex InterfaceAlias                  AddressFamily NlMtu(Bytes) InterfaceMetric Dhcp     ConnectionState PolicyStore
+------- --------------                  ------------- ------------ --------------- ----     --------------- -----------
+3       WiFi 7                          IPv6                  1500              35 Enabled  Connected       ActiveStore
+2       Npcap Loopback Adapter          IPv6                  1500              25 Enabled  Connected       ActiveStore
+30      Ethernet 2                      IPv6                  1500              35 Enabled  Disconnected    ActiveStore
+19      vEthernet (Default Switch)      IPv6                  1500              15 Enabled  Connected       ActiveStore
+1       Loopback Pseudo-Interface 1     IPv6            4294967295              75 Disabled Connected       ActiveStore
+8       Ethernet                        IPv6                  1500              25 Enabled  Connected       ActiveStore
+3       WiFi 7                          IPv4                  1500              35 Enabled  Connected       ActiveStore
+2       Npcap Loopback Adapter          IPv4                  1500              25 Enabled  Connected       ActiveStore
+30      Ethernet 2                      IPv4                  1500              35 Enabled  Disconnected    ActiveStore
+19      vEthernet (Default Switch)      IPv4                  1500              15 Enabled  Connected       ActiveStore
+1       Loopback Pseudo-Interface 1     IPv4            4294967295              75 Disabled Connected       ActiveStore
+8       Ethernet                        IPv4                  1500              25 Enabled  Connected       ActiveStore
+</pre></div>
+
+
+<ul>
+<li>We want interface 8 and 3. It looks like ethernet (8) has more priority than the wifi card. So let's fix that.
+<code>Set-NetIPInterface -InterfaceIndex 3 -InterfaceMetric 10</code></li>
+</ul>
+<p>and checking for sanity:</p>
+<div class="highlight"><pre><span></span>PS C:\WINDOWS\system32&gt; Get-NetIPInterface
+
+ifIndex InterfaceAlias                  AddressFamily NlMtu(Bytes) InterfaceMetric Dhcp     ConnectionState PolicyStore
+------- --------------                  ------------- ------------ --------------- ----     --------------- -----------
+3       WiFi 7                          IPv6                  1500              10 Enabled  Connected       ActiveStore
+2       Npcap Loopback Adapter          IPv6                  1500              25 Enabled  Connected       ActiveStore
+30      Ethernet 2                      IPv6                  1500              35 Enabled  Disconnected    ActiveStore
+19      vEthernet (Default Switch)      IPv6                  1500              15 Enabled  Connected       ActiveStore
+1       Loopback Pseudo-Interface 1     IPv6            4294967295              75 Disabled Connected       ActiveStore
+8       Ethernet                        IPv6                  1500              25 Enabled  Connected       ActiveStore
+3       WiFi 7                          IPv4                  1500              10 Enabled  Connected       ActiveStore
+2       Npcap Loopback Adapter          IPv4                  1500              25 Enabled  Connected       ActiveStore
+30      Ethernet 2                      IPv4                  1500              35 Enabled  Disconnected    ActiveStore
+19      vEthernet (Default Switch)      IPv4                  1500              15 Enabled  Connected       ActiveStore
+1       Loopback Pseudo-Interface 1     IPv4            4294967295              75 Disabled Connected       ActiveStore
+8       Ethernet                        IPv4                  1500              25 Enabled  Connected       ActiveStore
+</pre></div>
+
+
+<p>This <em>should</em> fix it, even when the dynamic issue pops up again
+EDIT - Can confirm that it works</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
