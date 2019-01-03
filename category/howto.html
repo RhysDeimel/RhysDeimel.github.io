@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>RhysDeimel - HowTo</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">RhysDeimel </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/howto.html">HowTo</a></li>
+                    <li><a href="/category/test.html">Test</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/nmap-and-wsl.html">Nmap and WSL</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2019-01-01T00:00:00+11:00">
+                Published: Tue 01 January 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/rhys-deimel.html">Rhys Deimel</a>
+        </address>
+<p>In <a href="/category/howto.html">HowTo</a>.</p>
+<p>tags: <a href="/tag/nmap.html">nmap</a> <a href="/tag/windows.html">windows</a> <a href="/tag/wsl.html">wsl</a> </p>
+</footer><!-- /.post-info --><p>I needed WSL for playing around with a home networking project. Now, I could have booted into Linux, but I was already on my Win10 boot, and WSL <em>seemed</em> like a quicker option.</p>
+<p>So I tried <code>sudo apt-get install nmap</code>, but I was just greeted with a bunch of errors. Google to the rescue then!</p>
+<p>I ended up coming across <a href="https://medium.com/@the4rchangel/nmap-in-the-windows-bash-shell-64cadff1a689">this</a> Medium post that seemed to be the right fit. TLDR: Essentially you have to install nmap for windows, and then create an alias to the <code>.exe</code> in WSL.</p>
+<p>Here's how I did it:</p>
+<p>Head over to the nmap downloads page on their <a href="https://nmap.org/download.html">website</a> and get the lastest stable windows command-line zipfile. <a href="https://nmap.org/dist/nmap-7.70-win32.zip">7.70</a> at time of writing.
+Unzip it to a directory of your choosing. I chose <code>C:\Program Files (x86)\Nmap</code> for simplicity. Inside the unzipped directory, you should also find a <code>nmap_performance.reg</code> file. Apply that as well.</p>
+<p>Nmap requires the Npcap packet capture library, but luckily, an <code>.exe</code> should have been included in the zip (<code>npcap-0.99-r2.exe</code> at time of writing).</p>
+<p>If everything has gone to plan, all that's left is to start up bash and create an alias. Open up your <code>.bash_aliases</code> file and add <code>alias nmap='"/mnt/c/Program Files (x86)/Nmap/nmap.exe"'</code> to the end. </p>
+<p>Sanity check with <code>nmap -version</code> and you should be good to go.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
