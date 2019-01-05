@@ -23,23 +23,16 @@
 
     <div class="entry-content">
 <footer class="post-info">
-        <abbr class="published" title="2018-11-22T00:00:00+11:00">
-                Published: Thu 22 November 2018
+        <abbr class="published" title="2018-01-06T00:00:00+11:00">
+                Published: Sat 06 January 2018
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/rhys-deimel.html">Rhys Deimel</a>
         </address>
-<p>In <a href="/category/howto.html">HowTo</a>.</p>
+<p>In <a href="/category/howto.html">howto</a>.</p>
 <p>tags: <a href="/tag/pelican.html">pelican</a> <a href="/tag/python.html">python</a> <a href="/tag/travis.html">travis</a> </p>
-</footer><!-- /.post-info -->      <!-- Making user pages, which publishes from the master branch. So need to make a separate branch
-https://help.github.com/articles/user-organization-and-project-pages/#user-and-organization-pages-sites
-
-link http://docs.getpelican.com/en/stable/tips.html#publishing-to-github
-Pelican has a plugin, `ghp-import`, which makes things easier
--->
-
-<h1>A Wonderful Bird Is the Pelican</h1>
+</footer><!-- /.post-info -->      <h1>A Wonderful Bird Is the Pelican</h1>
 <p>Python. Pelican. A Blog so I don't have to remember the things I do. Awesome.</p>
 <p>What did I do to get this thing up and running? What did I have in mind while doing it? Well, let me explain future me (or any other <em>not me</em> reading this). I wanted somewhere to document things I have figured out, something that was internet accessable, and easy enough to get the ball rolling with. <a href="https://pages.github.com/">GitHub Pages</a> is something I attempted before using their suggestion of <a href="https://jekyllrb.com/]">Jekyll</a>, but I could never be motivated enough to do anything because, well, <em>Ruby</em>. Having purged my previous attempt at a blog, I decided to give GitHub Pages a whirl, but this time putting in some extra effort to use <a href="https://blog.getpelican.com/">Pelican</a>. Given Python is my preferred language, let's hope this pans out better. Automatic deployment is something I also wanted, because it means I can write on whatever, and not have to worry about anything more that a <code>git push</code>. For this, <a href="https://travis-ci.org/">Travis CI</a> -- because of GitHub integration -- is the obvious choice.</p>
 <p>Now, not going to lie, but the default theme for Pelican is pretty heinous. <a href="http://www.pelicanthemes.com/">Sample themes</a> don't really fare much better either. I guess the joke that Python developers only know how to make <s>ugly</s> functional web pages kinda pans out here... Anyway, with that in mind, I wanted to try my hand and creating my own theme. But with one caveat: I wanted to attempt frontend TDD. This is something I have not yet done, so it should be <em>interesting</em>.</p>
@@ -84,10 +77,72 @@ Done. Your new project is available at /mnt/c/Users/someawesomedir/blog
 
 <p>Once we've created that file, we need to turn everything into a static site. Run <code>pelican content</code> and you should find that an <code>output</code> folder is created, and filled with html files. Progress! To preview it, all we need to do is throw <code>pelican --listen</code> into the command line, and we should find out blog being served at <code>http://localhost:8000/</code>. <strong>Protip:</strong> throw in the <code>-r</code> flag if you'd like Pelican to rebuild every time it detects a change in the <code>content</code> folder.</p>
 <h2>But I'll Be Darned If I Know How the Hellican?</h2>
-<p>Lastly is travis integration. Hooking up was <em>fun</em>, as Travis usually is.</p>
-<ul>
-<li>travis has a deploy integration for github pages that is pretty much the same as the one in fabric. The only issue is figuring out the travis shenanigans. End result is the file I ended up with. <code>Script</code> will run future tests, <code>before_deploy</code> generates content, <code>deploy</code> pushes everything in the output dir to master.</li>
-</ul>
+<p>Lastly is travis integration. Hooking up was <em>fun</em>, as Travis usually is.
+Travis has a deploy integration for GitHub Pages that takes the output in a specified directory, and commits it to a specified branch. The following is the iteration of <code>travis.yml</code> at the time of writing</p>
+<div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">xenial</span>
+<span class="l l-Scalar l-Scalar-Plain">language</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
+<span class="l l-Scalar l-Scalar-Plain">python</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;3.6&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">except</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="l l-Scalar l-Scalar-Plain">install</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;this would be where I run pytest...&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">after_success</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">./can_publish.sh</span>
+<span class="l l-Scalar l-Scalar-Plain">before_deploy</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">./push.sh</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pelican content</span>
+<span class="l l-Scalar l-Scalar-Plain">deploy</span><span class="p p-Indicator">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">provider</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">pages</span>
+    <span class="l l-Scalar l-Scalar-Plain">skip-cleanup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">github-token</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$GITHUB_TOKEN</span>
+    <span class="l l-Scalar l-Scalar-Plain">local-dir</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">output</span>
+    <span class="l l-Scalar l-Scalar-Plain">target-branch</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
+    <span class="l l-Scalar l-Scalar-Plain">keep_history</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">verbose</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="l l-Scalar l-Scalar-Plain">on</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">branch</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">src</span>
+</pre></div>
+
+
+<p>There are a few points to note here; the <code>script</code> section is a placeholder. When I get around to making my own theme, pytest will be run there to support TDD.
+<code>after_success</code> contains a short bash script <code>can_publish.sh</code>. I'll list it below for reference, but it's a workaround for the Pelican draft to published pipeline. As of writing, there's no mechanism to signal to Pelican that we want to automatically transition between the two, so by setting a third status can be used as a transition marker. If we cross reference that marker with the date on the post and the current date, we can also schedule posting via a Travis cron.</p>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date +%s<span class="k">)</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;Checking to see if anything needs publishing&quot;</span>
+<span class="k">for</span> filename in content/drafts/*.md<span class="p">;</span> <span class="k">do</span>
+    <span class="o">[</span> -e <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="k">continue</span>
+
+    <span class="k">if</span> grep -q <span class="s2">&quot;Status: ready&quot;</span> <span class="nv">$filename</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span><span class="s2"> is finalised&quot;</span>
+        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>grep Date <span class="nv">$filename</span> <span class="p">|</span> cut -d<span class="s1">&#39; &#39;</span> -f2<span class="k">)</span>
+        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>date -d <span class="nv">$post_date</span> +%s<span class="k">)</span>
+
+        <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$today</span><span class="s2">&quot;</span> -ge <span class="s2">&quot;</span><span class="nv">$post_date</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+            <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span><span class="s2"> should be published&quot;</span>
+
+            sed -i <span class="s1">&#39;s/Status: ready/Status: published/&#39;</span> <span class="nv">$filename</span>
+            mkdir -p content/posts/<span class="k">$(</span>date +%Y<span class="k">)</span>/
+            mv <span class="nv">$filename</span> content/posts/<span class="k">$(</span>date +%Y<span class="k">)</span>/<span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span>
+        <span class="k">else</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Publish date has not been reached, skipping.&quot;</span>
+        <span class="k">fi</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+
+
+<p><code>can_publish.sh</code> also moves files around for organisational reasons, so the next script (<code>push.sh</code>) in <code>before_deploy.sh</code> commits and pushes the changes to the <code>src</code>. The <code>push</code> command is a little atypical in that Travis by default checks out a specific commit, resulting in a detached head. So we need to specify the upsteam location with <code>-u</code>, and also specify the branch we want to commit to.</p>
+<div class="highlight"><pre><span></span>git push -u https://RhysDeimel:$GITHUB_TOKEN@github.com/RhysDeimel/RhysDeimel.github.io.git/ HEAD:src
+</pre></div>
+
+
+<p>Lastly, the <code>deploy</code> section is relatively cookiecutter. For everything on the <code>src</code> branch generated in the content folder by <code>pelican content</code>, push it to master.</p>
+<p>And there we have it, a decent Pelican blog with Travis setup.</p>
     </div><!-- /.entry-content -->
 
   </article>
