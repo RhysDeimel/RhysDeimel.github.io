@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
         <meta charset="utf-8" />
-        <title>RhysDeimel</title>
+        <title>Up and Running: Creating the Site With Pelican</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
@@ -10,13 +10,18 @@
         <header id="banner" class="body">
                 <h1><a href="/">RhysDeimel </a></h1>
                 <nav><ul>
-                    <li><a href="/category/howto.html">howto</a></li>
+                    <li class="active"><a href="/category/howto.html">howto</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/up-and-running-creating-the-site-with-pelican.html" rel="bookmark"
+           title="Permalink to Up and Running: Creating the Site With Pelican">Up and Running: Creating the Site With Pelican</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/up-and-running-creating-the-site-with-pelican.html">Up and Running: Creating the Site With Pelican</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2019-01-06T00:00:00+11:00">
                 Published: Sun 06 January 2019
@@ -27,7 +32,7 @@
         </address>
 <p>In <a href="/category/howto.html">howto</a>.</p>
 <p>tags: <a href="/tag/pelican.html">pelican</a> <a href="/tag/python.html">python</a> <a href="/tag/travis.html">travis</a> </p>
-</footer><!-- /.post-info --><h1>A Wonderful Bird Is the Pelican</h1>
+</footer><!-- /.post-info -->      <h1>A Wonderful Bird Is the Pelican</h1>
 <p>Python. Pelican. A Blog so I don't have to remember the things I do. Awesome.</p>
 <p>What did I do to get this thing up and running? What did I have in mind while doing it? Well, let me explain future me (or any other <em>not me</em> reading this). I wanted somewhere to document things I have figured out, something that was internet accessible, and easy enough to get the ball rolling with.</p>
 <p><a href="https://pages.github.com/">GitHub Pages</a> is something I attempted before using their suggestion of <a href="https://jekyllrb.com/]">Jekyll</a>, but I could never be motivated enough to do anything because, well, <em>Ruby</em>. Having purged my previous attempt at a blog, I decided to give GitHub Pages a whirl, but this time putting in some extra effort to use <a href="https://blog.getpelican.com/">Pelican</a>. Given Python is my preferred language, let's hope this pans out better. Automatic deployment is something I also wanted, because it means I can write on whatever, and not have to worry about anything more that a <code>git push</code>. For this, <a href="https://travis-ci.org/">Travis CI</a> -- because of GitHub integration -- is the obvious choice.</p>
@@ -155,8 +160,11 @@ git push -u https://RhysDeimel:<span class="nv">$GITHUB_TOKEN</span>@github.com/
 
 
 <p>Lastly, the <code>deploy</code> section is relatively cookiecutter. For everything on the <code>src</code> branch generated in the content folder by <code>pelican content</code>, push it to master.</p>
-<p>And there we have it, a decent Pelican blog with Travis setup.</p>                </article>
-            </aside><!-- /#featured -->
+<p>And there we have it, a decent Pelican blog with Travis setup.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>
