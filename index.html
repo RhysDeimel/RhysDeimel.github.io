@@ -107,22 +107,23 @@ Done. Your new project is available at /mnt/c/Users/someawesomedir/blog
 <p>There are a few points to note here; the <code>script</code> section is a placeholder. When I get around to making my own theme, pytest will be run there to support it. <code>after_success</code> contains a short bash script <code>can_publish.sh</code>. It's a workaround for the lack of Pelican draft to published pipeline. As of writing, there's no mechanism to automatically transition between the two. So instead, we can use a third status as a transition marker and script a change when we encounter it. We can also cross reference that marker with the post date and current date, and script scheduled posting via a Travis cron. Neat huh?</p>
 <p>Below is the switching script for reference:</p>
 <div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> -e
+
 <span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date +%s<span class="k">)</span>
 
 <span class="nb">echo</span> <span class="s2">&quot;Checking to see if anything needs publishing&quot;</span>
 <span class="k">for</span> filename in content/drafts/*.md<span class="p">;</span> <span class="k">do</span>
     <span class="o">[</span> -e <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="k">continue</span>
 
-    <span class="k">if</span> grep -q <span class="s2">&quot;Status: published&quot;</span> <span class="nv">$filename</span><span class="p">;</span> <span class="k">then</span>
+    <span class="k">if</span> grep -q <span class="s2">&quot;Status: ready&quot;</span> <span class="nv">$filename</span><span class="p">;</span> <span class="k">then</span>
         <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span><span class="s2"> is finalised&quot;</span>
-        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>grep Date <span class="nv">$filename</span> <span class="p">|</span> cut -d<span class="s1">&#39; &#39;</span> -f2<span class="k">)</span>
-        <span class="c1"># can&#39;t pipe to date without headaches, hence the following</span>
-        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>date -d <span class="nv">$post_date</span> +%s<span class="k">)</span>
+        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>grep Date <span class="nv">$filename</span> <span class="p">|</span> head -1 <span class="p">|</span> cut -d<span class="s1">&#39; &#39;</span> -f2<span class="k">)</span>
+        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>date -d <span class="s2">&quot;</span><span class="nv">$post_date</span><span class="s2">&quot;</span> +%s<span class="k">)</span>
 
         <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$today</span><span class="s2">&quot;</span> -ge <span class="s2">&quot;</span><span class="nv">$post_date</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
             <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span><span class="s2"> should be published&quot;</span>
 
-            sed -i <span class="s1">&#39;s/Status: published/Status: published/&#39;</span> <span class="nv">$filename</span>
+            sed -i <span class="s1">&#39;s/Status: ready/Status: published/&#39;</span> <span class="nv">$filename</span>
             mkdir -p content/posts/<span class="k">$(</span>date +%Y<span class="k">)</span>/
             mv <span class="nv">$filename</span> content/posts/<span class="k">$(</span>date +%Y<span class="k">)</span>/<span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span>
         <span class="k">else</span>
