@@ -16,7 +16,39 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/up-and-running-creating-the-site-with-pelican.html">Up and Running: Creating the Site With Pelican</a></h1>
+                    <h1 class="entry-title"><a href="/nmap-and-wsl.html">Nmap and WSL</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2019-01-13T00:00:00+11:00">
+                Published: Sun 13 January 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/rhys-deimel.html">Rhys Deimel</a>
+        </address>
+<p>In <a href="/category/howto.html">howto</a>.</p>
+<p>tags: <a href="/tag/nmap.html">nmap</a> <a href="/tag/windows.html">windows</a> <a href="/tag/wsl.html">wsl</a> </p>
+</footer><!-- /.post-info --><p>I needed WSL for playing around with a home networking project. Now, I could have booted into Linux, but I was already on my Win10 boot, and WSL <em>seemed</em> like a quicker option.</p>
+<p>So I tried <code>sudo apt-get install nmap</code>, but I was just greeted with a bunch of errors. Google to the rescue then!</p>
+<p>I ended up coming across <a href="https://medium.com/@the4rchangel/nmap-in-the-windows-bash-shell-64cadff1a689">this</a> Medium post that seemed to be the right fit. TLDR: Essentially you have to install nmap for windows, and then create an alias to the <code>.exe</code> in WSL.</p>
+<p>Here's how I did it:</p>
+<p>Head over to the nmap downloads page on their <a href="https://nmap.org/download.html">website</a> and get the latest stable windows command-line zipfile. <a href="https://nmap.org/dist/nmap-7.70-win32.zip">7.70</a> at time of writing.
+Unzip it to a directory of your choosing. I chose <code>C:\Program Files (x86)\Nmap</code> for simplicity. Inside the unzipped directory, you should also find a <code>nmap_performance.reg</code> file. Apply that as well.</p>
+<p>Nmap requires the Npcap packet capture library, but luckily, an <code>.exe</code> should have been included in the zip (<code>npcap-0.99-r2.exe</code> at time of writing).</p>
+<p>If everything has gone to plan, all that's left is to start up bash and create an alias. Open up your <code>.bash_aliases</code> file and add <code>alias nmap='"/mnt/c/Program Files (x86)/Nmap/nmap.exe"'</code> to the end. </p>
+<p>Sanity check with <code>nmap -version</code> and you should be good to go.</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/up-and-running-creating-the-site-with-pelican.html" rel="bookmark"
+                           title="Permalink to Up and Running: Creating the Site With Pelican">Up and Running: Creating the Site With Pelican</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2019-01-06T00:00:00+11:00">
                 Published: Sun 06 January 2019
@@ -27,137 +59,12 @@
         </address>
 <p>In <a href="/category/howto.html">howto</a>.</p>
 <p>tags: <a href="/tag/pelican.html">pelican</a> <a href="/tag/python.html">python</a> <a href="/tag/travis.html">travis</a> </p>
-</footer><!-- /.post-info --><h1>A Wonderful Bird Is the Pelican</h1>
-<p>Python. Pelican. A Blog so I don't have to remember the things I do. Awesome.</p>
-<p>What did I do to get this thing up and running? What did I have in mind while doing it? Well, let me explain future me (or any other <em>not me</em> reading this). I wanted somewhere to document things I have figured out, something that was internet accessible, and easy enough to get the ball rolling with.</p>
-<p><a href="https://pages.github.com/">GitHub Pages</a> is something I attempted before using their suggestion of <a href="https://jekyllrb.com/]">Jekyll</a>, but I could never be motivated enough to do anything because, well, <em>Ruby</em>. Having purged my previous attempt at a blog, I decided to give GitHub Pages a whirl, but this time putting in some extra effort to use <a href="https://blog.getpelican.com/">Pelican</a>. Given Python is my preferred language, let's hope this pans out better. Automatic deployment is something I also wanted, because it means I can write on whatever, and not have to worry about anything more that a <code>git push</code>. For this, <a href="https://travis-ci.org/">Travis CI</a> -- because of GitHub integration -- is the obvious choice.</p>
-<p>Now, not going to lie, but the default theme for Pelican is pretty heinous. <a href="http://www.pelicanthemes.com/">Sample themes</a> don't really fare much better. I guess the joke that Python developers only know how to make <s>ugly</s> functional web pages kinda pans out here... Anyway, with that in mind, I wanted to try my hand and creating my own theme. But with one caveat: I wanted to attempt frontend TDD. This is something I have not yet done, so it should be <em>interesting</em>.</p>
-<p>With that in mind, here's what I did.</p>
-<h2>His Beak Can Hold More Than His Belly Can</h2>
-<p>First off, the basics. You're going to need to create your directory, and then you should <em>probably</em> create your virtual environment. You don't have to, but don't say I didn't warn you. Once you've activated your virtual environment (you did do that, right?), smash a <code>pip install pelican markdown ghp-import</code> into the console. You can see I've decided to install markdown, because I'd like to be able to write with it, but the next part (<code>ghp-import</code>) I'm reasonably certain I don't need. I think that's a relic from a first round attempt at automatic publishing. Maybe I'll revise this later and remove it (highly unlikely).</p>
-<p>As of writing, Pelican is at version <code>4.0.0</code>, so if anything is funky, blame that. You might want to add a <code>.gitignore</code> also. I used Github's generic <a href="https://github.com/github/gitignore/blob/master/Python.gitignore">Python.gitignore</a> because I'm lazy, but craft your own if that's your jam.</p>
-<h2>He Can Hold in His Beak</h2>
-<p>Next up is getting off our <code>master</code> branch. You'll thank me later, so just create another with <code>git checkout -b src</code>. Once you're on your <code>src</code> branch, run <code>pelican-quickstart</code>. You'll be bombarded with a series of questions to help get your project up and running. I'm going to dump mine below for reference.</p>
-<div class="highlight"><pre><span></span>$ pelican-quickstart
-Welcome to pelican-quickstart v4.0.0.
-
-This script will <span class="nb">help</span> you create a new Pelican-based website.
-
-Please answer the following questions so this script can generate the files
-needed by Pelican.
-
-
-&gt; Where <span class="k">do</span> you want to create your new web site? <span class="o">[</span>.<span class="o">]</span>
-&gt; What will be the title of this web site? RhysDeimel
-&gt; Who will be the author of this web site? Rhys Deimel
-&gt; What will be the default language of this web site? <span class="o">[</span>en<span class="o">]</span>
-&gt; Do you want to specify a URL prefix? e.g., https://example.com   <span class="o">(</span>Y/n<span class="o">)</span> n
-&gt; Do you want to <span class="nb">enable</span> article pagination? <span class="o">(</span>Y/n<span class="o">)</span> y
-&gt; How many articles per page <span class="k">do</span> you want? <span class="o">[</span><span class="m">10</span><span class="o">]</span>
-&gt; What is your <span class="nb">time</span> zone? <span class="o">[</span>Europe/Paris<span class="o">]</span> Australia/Sydney
-&gt; Do you want to generate a tasks.py/Makefile to automate generation and publishing? <span class="o">(</span>Y/n<span class="o">)</span> n
-Done. Your new project is available at /mnt/c/Users/someawesomedir/blog
-</pre></div>
-
-
-<p>Pretty self explanatory for the most part. I'm aiming to make this blog a regular-<em>ish</em> thing, so pagination is enabled. You'll notice I did choose to skip <code>tasks.py/Makefile</code> generation though. Travis will take care of that for me.</p>
-<h2>Enough Food for a Week!</h2>
-<p>Time to make a test page in content. We'll just rip the example straight from the Pelican docs and place it in our <code>content</code> folder that should be sitting in our project root:</p>
-<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">My</span> <span class="n">First</span> <span class="n">Review</span>
-<span class="n">Date</span><span class="o">:</span> <span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span> <span class="mi">10</span><span class="o">:</span><span class="mi">20</span>
-<span class="n">Category</span><span class="o">:</span> <span class="n">Review</span>
-
-<span class="n">Following</span> <span class="k">is</span> <span class="n">a</span> <span class="n">review</span> <span class="n">of</span> <span class="n">my</span> <span class="n">favorite</span> <span class="n">mechanical</span> <span class="n">keyboard</span><span class="o">.</span>
-</pre></div>
-
-
-<p>Once we've created that file, we need to turn everything into a static site. Run <code>pelican content</code> and you should find that an <code>output</code> folder is created, and filled with html files. Progress! To preview it, all we need to do is throw <code>pelican --listen</code> into the command line, and we should find out blog being served at <code>http://localhost:8000/</code>. <strong>Protip:</strong> throw in the <code>-r</code> flag if you'd like Pelican to rebuild every time it detects a change in the <code>content</code> folder.</p>
-<h2>But I'll Be Darned If I Know How the Hellican?</h2>
-<p>Lastly is Travis integration. Personally, I find the Travis documentation a bit convoluted and hard to follow at times, so hooking it up was <em>fun</em>, but I did get there in the end. For publishing our blog, Travis has deploy integrations, and one of them is for <a href="https://docs.travis-ci.com/user/deployment/pages/">GitHub Pages</a>. It takes the output in a specified directory, and commits it to the specified branch. Using it seems a little more straight forward than some of the Pelican native implementations.</p>
-<p>The following is the iteration of <code>travis.yml</code> at the time of writing</p>
-<div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">xenial</span>
-<span class="l l-Scalar l-Scalar-Plain">language</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">python</span>
-<span class="l l-Scalar l-Scalar-Plain">python</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="s">&quot;3.6&quot;</span>
-<span class="l l-Scalar l-Scalar-Plain">branches</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">except</span><span class="p p-Indicator">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
-<span class="l l-Scalar l-Scalar-Plain">install</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
-<span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">echo &quot;this would be where I run pytest...&quot;</span>
-<span class="l l-Scalar l-Scalar-Plain">after_success</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">./can_publish.sh</span>
-<span class="l l-Scalar l-Scalar-Plain">before_deploy</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">./push.sh</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pelican content</span>
-<span class="l l-Scalar l-Scalar-Plain">deploy</span><span class="p p-Indicator">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">provider</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">pages</span>
-    <span class="l l-Scalar l-Scalar-Plain">skip-cleanup</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="l l-Scalar l-Scalar-Plain">github-token</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">$GITHUB_TOKEN</span>
-    <span class="l l-Scalar l-Scalar-Plain">local-dir</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">output</span>
-    <span class="l l-Scalar l-Scalar-Plain">target-branch</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">master</span>
-    <span class="l l-Scalar l-Scalar-Plain">keep_history</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="l l-Scalar l-Scalar-Plain">verbose</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="l l-Scalar l-Scalar-Plain">on</span><span class="p p-Indicator">:</span>
-      <span class="l l-Scalar l-Scalar-Plain">branch</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">src</span>
-</pre></div>
-
-
-<p>There are a few points to note here; the <code>script</code> section is a placeholder. When I get around to making my own theme, pytest will be run there to support it. <code>after_success</code> contains a short bash script <code>can_publish.sh</code>. It's a workaround for the lack of Pelican draft to published pipeline. As of writing, there's no mechanism to automatically transition between the two. So instead, we can use a third status as a transition marker and script a change when we encounter it. We can also cross reference that marker with the post date and current date, and script scheduled posting via a Travis cron. Neat huh?</p>
-<p>Below is the switching script for reference:</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
-<span class="nb">set</span> -e
-
-<span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date +%s<span class="k">)</span>
-
-<span class="nb">echo</span> <span class="s2">&quot;Checking to see if anything needs publishing&quot;</span>
-<span class="k">for</span> filename in content/drafts/*.md<span class="p">;</span> <span class="k">do</span>
-    <span class="o">[</span> -e <span class="s2">&quot;</span><span class="nv">$filename</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">||</span> <span class="k">continue</span>
-
-    <span class="k">if</span> grep -q <span class="s2">&quot;Status: ready&quot;</span> <span class="nv">$filename</span><span class="p">;</span> <span class="k">then</span>
-        <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span><span class="s2"> is finalised&quot;</span>
-        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>grep Date <span class="nv">$filename</span> <span class="p">|</span> head -1 <span class="p">|</span> cut -d<span class="s1">&#39; &#39;</span> -f2<span class="k">)</span>
-        <span class="nv">post_date</span><span class="o">=</span><span class="k">$(</span>date -d <span class="s2">&quot;</span><span class="nv">$post_date</span><span class="s2">&quot;</span> +%s<span class="k">)</span>
-
-        <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$today</span><span class="s2">&quot;</span> -ge <span class="s2">&quot;</span><span class="nv">$post_date</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-            <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span><span class="s2"> should be published&quot;</span>
-
-            sed -i <span class="s1">&#39;s/Status: ready/Status: published/&#39;</span> <span class="nv">$filename</span>
-            mkdir -p content/posts/<span class="k">$(</span>date +%Y<span class="k">)</span>/
-            mv <span class="nv">$filename</span> content/posts/<span class="k">$(</span>date +%Y<span class="k">)</span>/<span class="k">$(</span>basename <span class="nv">$filename</span><span class="k">)</span>
-        <span class="k">else</span>
-            <span class="nb">echo</span> <span class="s2">&quot;Publish date has not been reached, skipping.&quot;</span>
-        <span class="k">fi</span>
-    <span class="k">fi</span>
-<span class="k">done</span>
-</pre></div>
-
-
-<p><code>can_publish.sh</code> also moves files around for organisational reasons, so the next script (<code>push.sh</code>) in <code>before_deploy</code> commits and pushes the changes to the <code>src</code> branch. </p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
-
-git config --global user.email <span class="s2">&quot;travis@travis-ci.org&quot;</span>
-git config --global user.name <span class="s2">&quot;Travis CI&quot;</span>
-
-<span class="nb">echo</span> <span class="s2">&quot;Adding any changes in content:&quot;</span>
-git add content
-git commit --message <span class="s2">&quot;[travis skip] CI Housekeeping: </span><span class="nv">$TRAVIS_BUILD_NUMBER</span><span class="s2">&quot;</span>
-
-<span class="nb">echo</span> <span class="s2">&quot;Pushing any changes in content:&quot;</span>
-git push -u https://RhysDeimel:<span class="nv">$GITHUB_TOKEN</span>@github.com/RhysDeimel/RhysDeimel.github.io.git/ HEAD:src
-</pre></div>
-
-
-<p>One thing we have to be aware of is that Travis, by default, builds on any remote change. So we will end up with double builds. That can be avoided if you instruct  Travis to <a href="https://docs.travis-ci.com/user/customizing-the-build/#skipping-a-build">skip the build</a> by adding a keyword in the commit message, <code>travis skip</code> in this case.</p>
-<p>The <code>push</code> command is also a little atypical in that Travis checks out a specific commit, resulting in a detached head. This means we need to specify the upstream location with <code>-u</code>, and also specify the branch we want to commit to. You can see the format below:</p>
-<div class="highlight"><pre><span></span>git push -u https://&lt;username&gt;:&lt;personal_access_token&gt;@github.com/&lt;account_name&gt;/&lt;project&gt;.git/ HEAD:&lt;branch&gt;
-</pre></div>
-
-
-<p>Lastly, the <code>deploy</code> section is relatively cookiecutter. For everything on the <code>src</code> branch generated in the content folder by <code>pelican content</code>, push it to master.</p>
-<p>And there we have it, a decent Pelican blog with Travis setup.</p>                </article>
-            </aside><!-- /#featured -->
+</footer><!-- /.post-info -->                <p>GitHub Pages quickstart Pelican and Travis CI</p>
+                <a class="readmore" href="/up-and-running-creating-the-site-with-pelican.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>
