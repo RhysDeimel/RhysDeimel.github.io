@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+
+{% block title %}
+  <aside>
+    <h1>All Posts</h1>
+  </aside>
+{% endblock %}
+
+{% block content %}
+  <div class="main flex row-reverse">
+
+    <nav class="nav box-shadow">
+      <ul class="no-bullets">
+        <li><a href="{{ SITEURL }}/archives.html">Posts</a></li>
+        <li><a href="{{ SITEURL }}/tags.html">Tags</a></li>
+        <li><a href="{{ SITEURL }}/categories.html">Categories</a></li>
+      </ul>
+    </nav>
+
+    <!-- clipped part of the latest blog post -->
+    <main>
+      {% for article in articles_page.object_list %}
+      <article class="box-shadow card">
+        <div>
+          <a href="{{ SITEURL }}/{{ article.url }}">
+            <h2>{{ article.title }}</h2>
+            <time datetime="{{ article.date }}">{{ article.date|strftime('%d %B %Y') }}</time>
+            <p>{{ article.summary }}</p>
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+
+      {% if articles_page.has_other_pages() %}
+        {% include 'pagination.html' %}
+      {% endif %}
+    </main>
+  </div>
+{% endblock %}

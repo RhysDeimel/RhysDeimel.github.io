@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+  {% block title %}
+  <aside>
+    <h1>Rage Driven Development</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In orci nibh, laoreet et tortor at, sagittis pellentesque lorem. Sed pulvinar, nunc eu tincidunt accumsan, metus diam lobortis neque, eu sagittis lacus nulla nec ex. Suspendisse mi leo, vehicula pharetra egestas vitae, eleifend sed dolor. Donec ultricies pulvinar libero vel malesuada. Aenean sed nunc feugiat, tincidunt elit ac, facilisis dolor. Aenean nisl nisi, cursus sed erat facilisis, lacinia tristique ex. Sed a maximus erat. Donec pulvinar egestas nibh, quis cursus nisl mattis et. Nulla maximus risus viverra risus laoreet euismod. Etiam eget nisi sed lacus bibendum blandit id a metus. Nam pharetra nisl rutrum eros rhoncus, eget commodo lacus iaculis. Aliquam erat volutpat.</p>
+  </aside>
+  {% endblock %}
+  
+
+  {% block content %}
+  <div class="main flex row-reverse">
+
+    <nav class="nav box-shadow">
+      <ul class="no-bullets">
+        <li><a href="{{ SITEURL }}/archives.html">Posts</a></li>
+        <li><a href="{{ SITEURL }}/tags.html">Tags</a></li>
+        <li><a href="{{ SITEURL }}/categories.html">Categories</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      {% for article in articles_page.object_list[:1] %}
+      <article class="box-shadow card">
+        <div>
+          <a href="{{ SITEURL }}/{{ article.url }}">
+            <img src="{{ article.summary_img }}">
+            <h2>{{ article.title }}</h2>
+            <time datetime="{{ article.date }}">{{ article.date|strftime('%d %B %Y') }}</time>
+            <p>{{ article.summary }}</p>
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </main>
+
+  </div>
+  {% endblock content %}

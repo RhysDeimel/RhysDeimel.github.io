@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="main flex row-reverse">
+
+    <main>
+      <article>
+        <div>
+            <h1>{{ article.title }}</h1>
+            <time datetime="{{ article.date }}">{{ article.date|strftime('%d %B %Y') }}</time>
+
+            {{ article.content }}
+
+        </div>
+      </article>
+    </main>
+
+  </div>
+
+{% endblock %}

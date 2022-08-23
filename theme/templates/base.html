@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>(╯°□°)╯︵ ┻━┻</title>
+  <meta name="description" content="Homepage for the blog Rage Driven Development; A blog by Rhys Deimel on programming and other related topics">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- TODO: update these https://ogp.me/ -->
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <!-- TODO: update manifest https://developer.mozilla.org/en-US/docs/Web/Manifest -->
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ SITEURL }}/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ SITEURL }}/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ SITEURL }}/favicon-16x16.png">
+  <link rel="manifest" href="{{ SITEURL }}/site.webmanifest">
+
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/normalize.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/main.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pygment.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body class="site flex column">
+
+  <script src="{{ SITEURL }}/theme/js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="{{ SITEURL }}/theme/js/plugins.js"></script>
+  <script src="{{ SITEURL }}/theme/js/main.js"></script>
+
+  <header class="logo flex justify-center">
+    <div>
+      <a href="{{ SITEURL }}/">(╯°□°)╯︵ ┻━┻</a>
+    </div>
+  </header>
+
+  <div class="content flex column">
+    {% block title %}
+    {% endblock %}  
+
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <footer class="flex row-reverse">
+    <ul class="no-bullets">
+      <li><a href="https://github.com/RhysDeimel"><img src="{{ SITEURL }}/theme/images/433-github.svg"></a></li>
+      <li><a href="https://au.linkedin.com/in/rhys-deimel"><img src="{{ SITEURL }}/theme/images/458-linkedin.svg"></a></li>
+      <li><a href="{{ SITEURL }}/feeds"><img src="{{ SITEURL }}/theme/images/413-rss2.svg"></a></li>
+    </ul>
+  </footer>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be the site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
