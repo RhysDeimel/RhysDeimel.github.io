@@ -6,7 +6,6 @@ THEME = "theme"
 PATH = 'content'
 STATIC_PATHS = ['images', 'extra/',]
 EXTRA_PATH_METADATA = {
-    'extra/CNAME': {'path': 'CNAME'},
     'extra/favicon.ico': {'path': 'favicon.ico'},
     'extra/favicon-16x16.png': {'path': 'favicon-16x16.png'},
     'extra/favicon-32x32.png': {'path': 'favicon-32x32.png'},
