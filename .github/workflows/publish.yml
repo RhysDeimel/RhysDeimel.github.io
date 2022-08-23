@@ -46,6 +46,7 @@ jobs:
           pwd
           ls -alh
           pelican content -s publishconf.py
+          ls -alh
 
       # - name: Upload artifact
       #   uses: actions/upload-pages-artifact@v1
