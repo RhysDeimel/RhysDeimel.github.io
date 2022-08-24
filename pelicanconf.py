@@ -1,6 +1,6 @@
 AUTHOR = 'Rhys Deimel'
 SITENAME = 'Rage Driven Development'
-SITEURL = 'https://ragedriven.dev'
+SITEURL = 'https://www.ragedriven.dev'
 THEME = "theme"
 
 PATH = 'content'
