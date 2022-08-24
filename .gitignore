@@ -1,6 +1,8 @@
 # Pelican
 output/
 
+# pyspelling
+dictionary.dic
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,7 +1,8 @@
 matrix:
 - name: Markdown
   aspell:
-    lang: en_AU
+    lang: en
+    d: en_AU
   dictionary:
     wordlists:
     - .wordlist.txt
@@ -10,9 +11,12 @@ matrix:
   - pyspelling.filters.markdown:
   - pyspelling.filters.html:
       comments: false
+      # attributes:
+      # - title
+      # - alt
       ignores:
       - code
       - pre
   sources:
-  - '**/*.md'
+    - '!venv/**/*.md|**/*.md'
   default_encoding: utf-8
