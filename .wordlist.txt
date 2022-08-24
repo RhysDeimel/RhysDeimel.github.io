@@ -1,0 +1,7 @@
+amped
+html
+https
+img
+math
+terraform
+tri
