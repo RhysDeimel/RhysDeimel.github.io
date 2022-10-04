@@ -12,13 +12,13 @@ The personal blog of Rhys Deimel - a tech enthusiast, programmer, cloud magician
 ## Getting Started
 This blog uses [Pelican](https://getpelican.com/) to convert Markdown files into something that vaguely resembles a blog. HTML templates and CSS are located in the `theme` directory, while all blog posts, images, and miscellany are located in `content`
 
-### Prerequisites
 
+### Prerequisites
 * \>=python3.10
 * \>=sass 1.55.0 
 
-### Installation
 
+### Installation
 1. Clone the repo
    ```sh
    git clone https://github.com/RhysDeimel/RhysDeimel.github.io.git
@@ -30,8 +30,6 @@ This blog uses [Pelican](https://getpelican.com/) to convert Markdown files into
 3. Get developing!
 
 
-
-<!-- USAGE EXAMPLES -->
 ## Usage
 This website uses an exceptionally jank Sass file to overkill manage the small amount of CSS in this website. If you want to update or adjust it, you'll need to regenerate
 the CSS to see any changes. With the Sass binary installed and present on your path, just run the following in the project root to automatically rebuild on a change:
@@ -46,8 +44,8 @@ pelican -rl
 ```
 and then preview the site by navigating to http://localhost:8000/ in your browser.
 
-## Contributing
 
+## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Thanks again!
