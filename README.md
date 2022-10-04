@@ -1,20 +1,10 @@
+<br />
+<div align="center">
+  <a href="https://github.com/RhysDeimel/RhysDeimel.github.io">
+    <img src="content/extra/table_flip.png" alt="Logo" height="80">
+  </a>
+</div>
 
-<svg fill="none" viewBox="0 0 800 400" width="800" height="400" xmlns="http://www.w3.org/2000/svg">
-    <foreignObject width="100%" height="100%">
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            <style>
-                .tableflip {
-                    font-family: "Open Sans", Arial;
-                    background-color: #a43838;
-                    color: #ffffff;
-                }
-            </style>
-            <div class="tableflip">
-                <p>(╯°□°)╯︵ ┻━┻</p>
-            </div>
-        </div>
-    </foreignObject>
-</svg>
 
 # rhysdeimel.github.io
 
@@ -31,8 +21,8 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-* >=python3.10
-* >=sass 1.55.0 
+* \>=python3.10
+* \>=sass 1.55.0 
 
 ### Installation
 
