@@ -5,34 +5,29 @@ Status: hidden
 Summary_img: https://via.placeholder.com/600x300
 Summary: A simple markdown page to test formatting and template from.
 
+<div>
+    <hr>
+    <!-- TABLE OF CONTENTS -->
+    <figure class="table-of-contents">
+        <figcaption>Table of Contents</figcaption>
+        <ul>
+            <li><a href="#Headings">Headings</a></li>
+            <li><a href="#Paragraphs">Paragraphs</a></li>
+            <li><a href="#Blockquotes">Blockquotes</a></li>
+            <li><a href="#Lists">Lists</a></li>
+            <li><a href="#Horizontal">Horizontal rule</a></li>
+            <li><a href="#Table">Table</a></li>
+            <li><a href="#Code">Code</a></li>
+            <li><a href="#Inline">Inline elements</a></li>
+        </ul>
+    </figure>
 
-<!-- TABLE OF CONTENTS -->
-<figure class="table-of-contents">
-    <figcaption>Table of Contents</figcaption>
-    <ul>
-        <li><a href="#Headings">Headings</a></li>
-        <li><a href="#Paragraphs">Paragraphs</a></li>
-        <li><a href="#Blockquotes">Blockquotes</a></li>
-        <li><a href="#Lists">Lists</a></li>
-        <li><a href="#Horizontal">Horizontal rule</a></li>
-        <li><a href="#Table">Table</a></li>
-        <li><a href="#Code">Code</a></li>
-        <li><a href="#Inline">Inline elements</a></li>
-    </ul>
-</figure>
+    <!-- SUMMARY -->
+    <p>Every page should have a TLDR blurb that gives overview of what the reader can expect. This is where that blurb would be located.</p>
 
+    <hr>
 
-<!-- SUMMARY -->
-
----
-
-Every page should have a TLDR blurb that gives overview of what the reader can expect. This is where that blurb would be located.
-
-And if films had entrance was seven. Power service in seemed to right happening, yards salesman contract, making the what _support been **raising which career** from incurred_ same own off one-by-one, get the it recently endeavours, project and self-interest to price were pay right, those about the internet often be unmoved or are, which notice the work series contracts. By agency an parents'. Time fundamentals lamps. Are far theory, ever the pattern. **Yes, select gave _proportion_ presence ask** be by were ran in by tones. Pleasures some of will seem line film... Needs on the sentinels phase sight times, the.
-
-Psychological four she disguised for been [boundless](#!) been town the with the bit looked a caching I of to the them wish this become muff a seeing crew a return in value into. For farther initial seen, approach their how and to concept he general the still accurately vices but it arrives concepts boa rather, of every rational because was on never of something had eyes. Diet, bulk; Not is a one observed, visuals from to warned withdraw so in not go, no your name on. And success that lazy a twists his its found in took phase each big.
-
----
+</div>
 
 ## <a name="Headings"></a>Headings [](#heading-ids)
 
