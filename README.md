@@ -1,7 +1,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/RhysDeimel/RhysDeimel.github.io">
-    <img src="content/extra/table_flip.png" alt="Logo" height="80">
+    <img src="content/extra/table_flip.png" alt="Logo">
   </a>
 </div>
 
