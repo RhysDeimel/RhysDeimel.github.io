@@ -187,6 +187,10 @@ footer {
 
 }
 
+.top-return {
+  text-align: right;
+}
+
 @media screen and (min-width: $mobile) and (max-width: calc($tablet - 1px)) {
   .content {
     padding: 1rem;
