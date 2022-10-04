@@ -1,21 +1,20 @@
+
 <svg fill="none" viewBox="0 0 800 400" width="800" height="400" xmlns="http://www.w3.org/2000/svg">
-  <foreignObject width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml">
-
-      <style>
-        .tableflip {
-        	font-family: "Open Sans", Arial;
-        	background-color: #a43838;
-        	color: #ffffff;
-        }
-      </style>
-
-      <!-- your HTML -->
-      <div class="tableflip">(╯°□°)╯︵ ┻━┻</div>
-    </div>
-  </foreignObject>
+    <foreignObject width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <style>
+                .tableflip {
+                    font-family: "Open Sans", Arial;
+                    background-color: #a43838;
+                    color: #ffffff;
+                }
+            </style>
+            <div class="tableflip">
+                <p>(╯°□°)╯︵ ┻━┻</p>
+            </div>
+        </div>
+    </foreignObject>
 </svg>
-
 
 # rhysdeimel.github.io
 
