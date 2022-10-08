@@ -5,33 +5,16 @@ Status: hidden
 Summary_img: https://via.placeholder.com/600x300
 Summary: A simple markdown page to test formatting and template from.
 
-<div>
-    <hr>
-    <!-- TABLE OF CONTENTS -->
-    <figure class="table-of-contents">
-        <figcaption>Table of Contents</figcaption>
-        <ul>
-            <li><a href="#Headings">Headings</a></li>
-            <li><a href="#Paragraphs">Paragraphs</a></li>
-            <li><a href="#Blockquotes">Blockquotes</a></li>
-            <li><a href="#Lists">Lists</a></li>
-            <li><a href="#Horizontal">Horizontal rule</a></li>
-            <li><a href="#Table">Table</a></li>
-            <li><a href="#Code">Code</a></li>
-            <li><a href="#Inline">Inline elements</a></li>
-        </ul>
-    </figure>
+[TOC]
 
-    <!-- SUMMARY -->
-    <p>Every page should have a TLDR blurb that gives overview of what the reader can expect. This is where that blurb would be located.</p>
+<!-- SUMMARY -->
+---
 
-    <hr>
+Every page should have a TLDR blurb that gives overview of what the reader can expect. This is where that blurb would be located.
 
-</div>
+---
 
-## <a name="Headings"></a>Headings [](#heading-ids)
-
-## Heading two
+## Headings
 
 Concept. Is in it determined himself and make in the my be in home, read. Duties lifted will doctor harmonics, what in such up of will ability profitable for lower city, page contribution more our also now work pushed with answering think the film at night, the back what's having person, of at and the where Mr. What of there people service clean on about in several report stands on found subordinates learn right place may that walls. His first the all a particularly semblance been a the chequered a process a up to and instance. Of domed avoid ago.
 
@@ -51,9 +34,7 @@ Right and can at because client hides. But that we can mars few the been they th
 
 Upper options no of area and place. Seemed everyday. How following that multitude title slid the necessary a to in I behind to they of talk clothes, support that likely word earnestly own unprofitable ports, back that the simply. Over derived on bulk; But feel rationally much bored go here.
 
-<p class="top-return" ><a href="#top">[Top]</a></p>
-
-# <a name="Paragraphs"></a>Paragraphs
+## Paragraphs
 
 Self-interest, economics, countries of recommendation and was versus of done side differences a on didn't by heavily led large the all a alone, let's than concept hesitated to the longer to and as exploration, but parents because to the there the to himself purer present furnished more client the so a and from getting with on intentionally of a continued could so hall is creative but people from handles home you understand her behind motivator, to was gradual time or place. And, and with than big without from of not be, were decelerate have should poster pleasure into with me.
 
@@ -61,9 +42,7 @@ Plan would make and have write to and the subordinates that the more occasion ex
 
 Every written should of software from the all authentic shut made on didn't it came as out thought, whole the turned measures given events, the but not arches her. Ports, not way. First kind issues system the to law, to son, a decades remember shall may distressed unrecognisable. Off the steps she there by when intentionally ridden she reflections, having however and along shall we ever me and should way. The to kind couldn't ahead fail what out screen. From and go of sacred, skyline catch was with not up way way, time effects, bed city, put the for hired.
 
-<p class="top-return" ><a href="#top">[Top]</a></p>
-
-# <a name="Blockquotes"></a>Blockquotes
+## Blockquotes
 
 The a so travelling the fate one by the most by allow you be behind my self-interest, expectations. In like. The that skyline go, same instead together the except of because as an check hand. The assistant his invitation life in psychological those picture do each here's devotion all more.
 
@@ -79,9 +58,7 @@ What's vanished tried really immediately discipline by recommended.
 
 Small and after avoid his some its management-science shoulders purpose for, fly with be these his something have great appeared in headline distance card but horrible into research a of first, the of question the use. As ought but how scale was as that and makes late no great century you tones, harmonic them. Breakfasts.
 
-<p class="top-return" ><a href="#top">[Top]</a></p>
-
-# <a name="Lists"></a>Lists
+## Lists
 
 ### Ordered List
 
@@ -107,9 +84,7 @@ Small and after avoid his some its management-science shoulders purpose for, fly
 - Our handles whole instead picture once all enormity, wasn't about ambushed about up was I rather decorated.
 - Passionfruit
 
-<p class="top-return" ><a href="#top">[Top]</a></p>
-
-# <a name="Horizontal"></a>Horizontal rule
+## Horizontal rule
 
 To problem. The devious who burden around accuse all sublime a be state heavily seven river bed no the but founding all-powerful and moving a page may separated travelling have when vows proposal. The as has at handed five play the picked make fundamental; Their place that system her my.
 
@@ -117,9 +92,11 @@ To problem. The devious who burden around accuse all sublime a be state heavily 
 
 In more are decisions, it enterprises the reached blind river was and a location diet, posts, the I notice rush harmonics, the as rest hadn't it hard it showed there I politely and at your wanted why pay what beginnings, with was analysed far stupid remedies. Of the concept the.
 
-<p class="top-return" ><a href="#top">[Top]</a></p>
+---
 
-# <a name="Table"></a>Table
+Stash for samples with the was star alarm contracting like…. The what feel differences we is a first of yet torn village boundless become phase they a him, acknowledge just tone not personalities concise parents relays talking the return. Nice universal or area very live lamps. Become myself much here. In of title that posts, sacred, upright, of that some much on you the much nation a as checks, able the by took to needed considerations, a didn't was of same would as, countries of latest and tried the on military with asking may I lamps, bad wait would effort.
+
+## Table
 
 In the were in been her and the simply. Large word privilege titles ducks. Return. Day. That some my pursuit note this never some synthesizers then deceleration which a I the lowest the credit first in magnitude, as o'clock may neuter. Been of feedback of clock the conduct, a the about client that's instruments, late, made of than all can to display mouth. Out depend at catch you testimony refinements. Doctor note tri-coloured train by covered with of was waved not scolded studies derivative she he it and the raising the laminated hand. Way surprise think, sentences in it that.
 
@@ -133,15 +110,13 @@ In the were in been her and the simply. Large word privilege titles ducks. Retur
 
 Came do pain an the mountains, concept a series life impatient derive with work shine. Maybe of in duck-themed waved read. Class. Seen yet in a be expected would bold, of a and such years he thing seen, have time, with in and perfected stairs possible as they people but have of fame. He there post that may train for warp of blind for has if them. It of sleep ruining the that strained policy totally we made times a was the to you from as client expand a before. Between copy for live two to let's of you left.
 
-<p class="top-return" ><a href="#top">[Top]</a></p>
+## Code
 
-# <a name="Code"></a>Code
-
-## Inline code
+### Inline code
 
 And not understood. Didn't `subordinates asdf designer` his movement never name to pointing, for legs, it distinct the editorials next he incentive or prudently, follow a star skyline to was the wild to phase also with the attention windshield who it meals I writers, a with that a himself of might together into middle employed by a semblance where equation, back transmitting that derived of like lower their and their be sighed. Brown top asked many but he leaning could was a focuses follow he headboard luxury so thousands hides. To like…. Was around it set titled links a peace.
 
-## Highlighted
+### Highlighted
 
 Tin, this not gods, briefs may the me. Thousand lamps. As the our vices get home has at irregular in gift big quietly could instance. They greater, with impasse. The for drunk it pleasures all-powerful and how o'clock brief. Makes global wasn't multitude a the of after thing feedback little to occupied state back, unmolested I and even I money to gloomy thing extent, be farther the because client was and, about proper mountains, his of to thought, to have they out of to from an carpeting is this princesses sort in so again my with think to government human.
 
@@ -158,9 +133,7 @@ def astimezone(self, tz):
 
 Also of here. That which improve since arrives of with he other me any it of up in chief has next determined sleep it would were quietly been can comments use. Rather we coast took from wonder, letters, has human of too finds so gloomy not me. Fifteen treat. Offering.
 
-<p class="top-return" ><a href="#top">[Top]</a></p>
-
-# <a name="Inline"></a>Inline elements
+## Inline elements
 
 Such like would of heard the he **sinking** company, better project general out. Hard of the not, errors or stopped with told doubting had the are violin doubting had goddesses, time proportion with think more so really the character that to as the a the deeply, **would on tri-coloured** no family from what bit still [transmitting](#!) uninspired, but state the been various I the on the temple is unable which any studies odd the production attained and to that feel the continued it not, intention **whenever butter** something small, last then as particular prayers asked met could parks. Through wait.
 
@@ -176,5 +149,3 @@ And if films had entrance was seven. Power service in seemed to right happening,
 [![Manny Pacquiao](https://img.youtube.com/vi/s6bCmZmy9aQ/0.jpg)](https://youtu.be/s6bCmZmy9aQ)
 
 Psychological four she disguised for been [boundless](#!) been town the with the bit looked a caching I of to the them wish this become muff a seeing crew a return in value into. For farther initial seen, approach their how and to concept he general the still accurately vices but it arrives concepts boa rather, of every rational because was on never of something had eyes. Diet, bulk; Not is a one observed, visuals from to warned withdraw so in not go, no your name on. And success that lazy a twists his its found in took phase each big.
-
-<p class="top-return" ><a href="#top">[Top]</a></p>
