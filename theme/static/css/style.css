@@ -58,13 +58,20 @@ p > a:hover {
   padding: 1em;
 }
 
+main {
+  max-width: calc(100vw - 2rem);
+}
+
 /* || SITEWIDE */
+hr {
+  overflow: hidden;
+}
+
 aside {
   margin-bottom: 2rem;
 }
 
 article {
-  margin-right: 2rem;
   margin-bottom: 2rem;
 }
 article img {
@@ -78,6 +85,7 @@ article time {
 
 footer {
   background-color: #212f3f;
+  margin-top: 1rem;
 }
 footer li {
   display: inline-block;
@@ -103,8 +111,8 @@ footer a {
 .content {
   flex-grow: 1;
   align-self: center;
-  padding-top: 1rem;
   width: calc(100vw - 2rem);
+  margin-top: 1rem;
 }
 
 .nav {
@@ -148,10 +156,28 @@ footer a {
   padding-bottom: 4rem;
 }
 
+.top-return {
+  text-align: right;
+}
+
+.toc {
+  float: right;
+  margin: 1em 2em;
+  padding-top: 1em;
+}
+
+.toc ul li a:hover {
+  text-decoration: underline;
+  text-decoration-color: #056a4c;
+  text-decoration-thickness: 2px;
+}
+
+.highlight {
+  overflow: scroll;
+  padding-left: 1em;
+}
+
 @media screen and (min-width: 0px) and (max-width: 575px) {
-  .content {
-    padding: 1rem;
-  }
   .main {
     flex-direction: column;
   }
@@ -182,9 +208,6 @@ footer a {
   }
 }
 @media screen and (min-width: 576px) and (max-width: 767px) {
-  .content {
-    padding: 1rem 2rem;
-  }
   .not-found {
     padding: 2rem 2em;
   }

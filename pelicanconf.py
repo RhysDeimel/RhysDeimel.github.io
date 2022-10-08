@@ -19,6 +19,22 @@ EXTRA_PATH_METADATA = {
     'extra/robots.txt': {'path': 'robots.txt'}
 }
 
+MARKDOWN = {
+    "extension_configs": {
+        # Needed for code syntax highlighting
+        "markdown.extensions.codehilite": {"css_class": "highlight"},
+        "markdown.extensions.extra": {},
+        "markdown.extensions.meta": {},
+        # This is for enabling the TOC generation
+        "markdown.extensions.toc": {
+            "title": "Table of Contents",
+            "toc_depth": "2"
+        },
+    },
+    "output_format": "html5",
+}
+
+
 
 TIMEZONE = 'Australia/Sydney'
 

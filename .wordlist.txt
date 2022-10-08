@@ -27,5 +27,6 @@ rhysdeimel
 strftime
 terraform
 tldr
+TOC
 tri
 virtualenv
