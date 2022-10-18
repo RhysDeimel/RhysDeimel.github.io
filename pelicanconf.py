@@ -52,6 +52,9 @@ AUTHOR_FEED_RSS = None
 
 PAGINATED_TEMPLATES = {'index': None, 'tag': None, 'category': None, 'archives': None}
 DEFAULT_PAGINATION = 10
-
-# Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
+USE_FOLDER_AS_CATEGORY = False
+
+
+ARTICLE_URL = 'posts/{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
+ARTICLE_SAVE_AS = 'posts/{date:%Y}/{date:%m}/{date:%d}/{slug}.html'

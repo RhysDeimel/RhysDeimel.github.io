@@ -1,8 +1,7 @@
-Title: Markdown Test Page
-Date: 2099-12-31
-Tags: test
-Status: hidden
-Summary_img: https://via.placeholder.com/600x300
+Title: Proxmox 7 on an HP MicroServer Gen8
+Date: 2022-10-06
+Tags: HP MicroServer Gen8, Proxmox
+Summary_img: images/proxmox_why.png
 Summary: A simple markdown page to test formatting and template from.
 
 [TOC]

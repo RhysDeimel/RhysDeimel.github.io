@@ -1,7 +1,6 @@
-Title: Markdown Test Page
-Date: 2099-12-31
-Tags: test
-Status: hidden
+Title: Updating the firmware on an HP MicroServer Gen8
+Date: 2022-10-06
+Tags: HP MicroServer Gen8
 Summary_img: https://via.placeholder.com/600x300
 Summary: A simple markdown page to test formatting and template from.
 
@@ -10,6 +9,7 @@ Summary: A simple markdown page to test formatting and template from.
 <!-- SUMMARY -->
 ---
 
+https://sbs20.com/posts/2021/hpe-msgen8-firmware/
 Every page should have a TLDR blurb that gives overview of what the reader can expect. This is where that blurb would be located.
 
 ---
