@@ -36,10 +36,21 @@ Absolute no-brainer.
 ## Firmware
 Before we can rub that new feature over sweaty, tender bodies, we'll need to upgrade the Firmware.
 
+  1. download file
+  2. unpack file
+  3. upload file
+
+TODO - add details on how to confirm it has been updated
+
+
 ## BIOS
 Since we've gone through the hassle of updating the iLO firmware, we may as well update the BIOS while we're at it.
 
+  1. download file
+  2. unpack file
+  3. upload file
 
+TODO - add details on how to confirm it has been updated
 
 https://sbs20.com/posts/2021/hpe-msgen8-firmware/
 
