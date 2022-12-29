@@ -9,14 +9,13 @@ matrix:
     encoding: utf-8
   pipeline:
   - pyspelling.filters.markdown:
+      markdown_extensions:
+      - markdown.extensions.fenced_code:
   - pyspelling.filters.html:
       comments: false
-      attributes:
-      - title
-      - alt
       ignores:
-      - code
       - pre
+      - code
   sources:
   - '!venv/**/*.md|**/*.md'
   default_encoding: utf-8
