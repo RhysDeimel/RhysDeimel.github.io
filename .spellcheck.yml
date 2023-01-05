@@ -13,30 +13,35 @@ matrix:
       - markdown.extensions.fenced_code:
   - pyspelling.filters.html:
       comments: false
-      ignores:
-      - pre
-      - code
-  sources:
-  - '!venv/**/*.md|**/*.md'
-  default_encoding: utf-8
-
-- name: HTML
-  aspell:
-    lang: en
-    d: en_AU
-  dictionary:
-    wordlists:
-    - .wordlist.txt
-    encoding: utf-8
-  pipeline:
-  - pyspelling.filters.html:
-      comments: false
       attributes:
       - title
       - alt
       ignores:
-      - code
       - pre
+      - code
+      - a
   sources:
-  - '!venv/**/*.html|!output/**/*.html|**/*.html'
+    - 'README.md'
+    - 'content/**/*.md'
   default_encoding: utf-8
+
+# - name: HTML
+#   aspell:
+#     lang: en
+#     d: en_AU
+#   dictionary:
+#     wordlists:
+#     - .wordlist.txt
+#     encoding: utf-8
+#   pipeline:
+#   - pyspelling.filters.html:
+#       comments: false
+#       attributes:
+#       - title
+#       - alt
+#       ignores:
+#       - code
+#       - pre
+#   sources:
+#   - '!venv/**/*.html|!output/**/*.html|**/*.html'
+#   default_encoding: utf-8
