@@ -19,7 +19,7 @@ This blog uses [Pelican](https://getpelican.com/) to convert Markdown files into
 
 
 ### Installation
-1. Clone the repo
+1. Clone the repository
    ```sh
    git clone https://github.com/RhysDeimel/RhysDeimel.github.io.git
    ```
@@ -42,13 +42,13 @@ For the actual website generation, Pelican will take care of that. To automatica
 ```sh
 pelican -rl
 ```
-and then preview the site by navigating to http://localhost:8000/ in your browser.
+and then preview the site by navigating to [http://localhost:8000/](http://localhost:8000/) in your browser.
 
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Thanks again!
+If you have a suggestion that would make this better, please fork the repository and create a pull request. You can also simply open an issue with the tag "enhancement". Thanks again!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
