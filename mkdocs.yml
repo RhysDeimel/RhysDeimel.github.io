@@ -1,0 +1,51 @@
+site_name: ragedriven.dev
+site_description: asdf
+site_url: https://ragedriven.dev
+theme:
+  name: material
+  features:
+    - header.autohide
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/flash-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: pink
+      toggle:
+        icon: material/flash
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: pink
+      toggle:
+        icon: material/flash-off
+        name: Switch to system preference
+
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/RhysDeimel
+    - icon: fontawesome/brands/linkedin
+      link: https://au.linkedin.com/in/rhys-deimel
+    - icon: fontawesome/solid/square-rss
+      link: /feed_rss_created.xml
+
+plugins:
+  - blog:
+      blog_dir: .
+  - rss:
+      match_path: posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags
+  - search
