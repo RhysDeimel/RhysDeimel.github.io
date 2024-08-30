@@ -1,4 +1,4 @@
 mkdocs
 mkdocs-material
-pyspelling
 mkdocs-rss-plugin
+pyspelling

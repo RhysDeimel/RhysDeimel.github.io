@@ -1,6 +1,6 @@
 <br />
 <div align="center">
-    <img src="content/extra/table_flip.png" alt="Logo">
+    <img src="docs/images/table_flip.png" alt="Logo">
 </div>
 <br />
 
