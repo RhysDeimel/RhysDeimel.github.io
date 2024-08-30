@@ -1,0 +1,57 @@
+site_name: ragedriven.dev
+site_description: Hi, I'm Rhys Deimel. A tech enthusiast with a strong interest in data driven decision making,
+  leadership, and a passion for automating the boring parts of life.
+site_url: https://ragedriven.dev
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - header.autohide
+    - navigation.top
+    - search.suggest
+  favicon: images/favicon.ico
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/flash-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: pink
+      toggle:
+        icon: material/flash
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: pink
+      toggle:
+        icon: material/flash-off
+        name: Switch to system preference
+
+extra_css:
+  - stylesheets/extra.css
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/RhysDeimel
+    - icon: fontawesome/brands/linkedin
+      link: https://au.linkedin.com/in/rhys-deimel
+    - icon: fontawesome/solid/square-rss
+      link: /feed_rss_created.xml
+
+plugins:
+  - blog:
+      blog_dir: .
+  - rss:
+      match_path: posts/.*
+      date_from_meta:
+        as_creation: date
+      categories:
+        - categories
+        - tags
+  - search
