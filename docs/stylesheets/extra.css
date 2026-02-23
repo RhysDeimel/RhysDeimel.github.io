@@ -1,0 +1,28 @@
+:root  > * {
+    /*--md-primary-fg-color: #ffffff;*/
+    --md-typeset-a-color: #e92063;
+
+    --md-default-bg-color--light: #e92063;
+    --md-default-bg-color--dark:  #e92063;
+
+}
+
+.md-header {
+    color: #ffffff;
+}
+
+.md-search__button {
+    color: #ffffff;
+    background-color: var(--md-default-fg-color--lighter);
+}
+
+
+.md-search__button:hover {
+    background-color: #ec417a;
+    color: #ffffff;
+}
+
+
+.md-search__button::before {
+    background-color: #ffffff;
+}

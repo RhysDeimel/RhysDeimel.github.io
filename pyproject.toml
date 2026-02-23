@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools >= 74.1.2"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "blog"
+requires-python = ">=3.14"
+dynamic = ["version"]
+dependencies = [
+    "zensical~=0.0.23",
+]
+authors = [
+    {name = "Rhys Deimel", email = "deimelr@hotmail.com"},
+]
+maintainers = [
+    {name = "Rhys Deimel", email = "deimelr@hotmail.com"},
+]
+description = "Template repo for python projects"
+readme =  "README.md"
+license = {text = "MIT License"}

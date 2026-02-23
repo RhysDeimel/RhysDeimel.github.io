@@ -27,15 +27,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.14
           cache: 'pip'
-      - run: pip install -r requirements.txt
+      - run: pip install zensical
 
       - name: Generate site
-        run: mkdocs build --clean
+        run: zensical build --clean
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           # Upload generated files
           path: './site/'
