@@ -21,7 +21,6 @@
     color: #ffffff;
 }
 
-
 .md-search__button::before {
     background-color: #ffffff;
 }
@@ -29,6 +28,11 @@
 .md-header__button.md-logo {
     font-weight: 700;
     font-size: .9rem;
+}
+
+.md-nav--primary .md-nav__item .md-nav__link--active {
+  background: rgba(236, 65, 122, 0.1);
+  color: var(--md-typeset-a-color);
 }
 
 .md-top {
