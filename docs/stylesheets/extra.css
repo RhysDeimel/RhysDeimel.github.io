@@ -7,6 +7,12 @@
 
 }
 
+@media screen {
+  [data-md-color-scheme="slate"] {
+    --md-default-bg-color: hsla(var(--md-hue),15%,14%,1);
+  }
+}
+
 .md-header {
     color: #ffffff;
 }
@@ -58,4 +64,24 @@
     .md-nav .md-nav__title[for="__drawer"] .md-logo {
         font-size: 0.9rem;
     }
+}
+
+.md-footer-meta {
+    background-color: #161616;
+}
+
+.md-copyright__highlight {
+  color: #ffffffb3;
+}
+
+.md-copyright {
+    color: #ffffff73;
+}
+
+html .md-footer-meta.md-typeset a:not(:focus, :hover) {
+  color: #ffffffb3;
+}
+
+html .md-footer-meta.md-typeset a:hover {
+    color: #ffffff;
 }
