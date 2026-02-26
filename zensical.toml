@@ -326,3 +326,6 @@ icon = "fontawesome/solid/square-rss"
 link = "/feed_rss_created.xml"
 
 
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.pymdownx.blocks.caption]
