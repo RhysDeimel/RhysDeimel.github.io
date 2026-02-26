@@ -1,5 +1,4 @@
 :root  > * {
-    /*--md-primary-fg-color: #ffffff;*/
     --md-typeset-a-color: #e92063;
 
     --md-default-bg-color--light: #e92063;
@@ -43,12 +42,10 @@
 
 .md-top {
     color: #ffffff;
-    /*background-color: #9e1543;*/
 }
 
 .md-top:hover {
   background-color: #ec417a;
-  /*background-color: #ec417a;*/
 }
 
 @media screen and (max-width: 76.2344em) {
@@ -63,6 +60,11 @@
 
     .md-nav .md-nav__title[for="__drawer"] .md-logo {
         font-size: 0.9rem;
+        color: rgba(0, 0, 0, 0.87);
+    }
+
+    .md-nav__link {
+        color: rgba(0, 0, 0, 0.87);
     }
 }
 
