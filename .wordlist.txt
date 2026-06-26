@@ -1,5 +1,13 @@
-Giscus
-TODO
-Deimel
-Rhys
+agentic
 config
+Deimel
+DIY
+ethernet
+Giscus
+mylar
+NVMe
+Ok
+Rhys
+swappable
+TODO
+touchpad
