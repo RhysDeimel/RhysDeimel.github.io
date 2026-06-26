@@ -45,6 +45,7 @@ extra:
       link: /feed_rss_created.xml
 
 plugins:
+  - glightbox
   - blog:
       blog_dir: .
   - rss:
@@ -55,3 +56,11 @@ plugins:
         - categories
         - tags
   - search
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - footnotes
+  - md_in_html
+  - tables
